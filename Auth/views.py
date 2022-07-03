@@ -39,7 +39,7 @@ class Login(View):
 class Logout(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         logout(request)
-        return redirect('Auth:login')
+        return redirect('Auth:Login')
 
 
 def ChangePassword(request):

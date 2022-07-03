@@ -8,6 +8,8 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic.edit import FormView
 import datetime
 from django.contrib import messages
+from django.http import HttpResponseRedirect
+
 
 
 class MyIssue(LoginRequiredMixin, ListView):
@@ -52,12 +54,6 @@ class CreateIssue(LoginRequiredMixin, FormView):
                 for f in file:
                     selected_files = f
                     Files.objects.create(files=selected_files, issue=issue, name=issue.title)
-            #
-            # end_files = selected_files
-            # Issue.objects.create(title=title, issue_type=issue_type,
-            #   channel=channel,module=module, description=description,
-            #   supscription_type=supscription_type, affects_version=affects_version,
-            #     train=train , file=end_files)
             return self.form_valid(form)
         else:
             return self.form_invalid(form)
@@ -85,3 +81,35 @@ class IssueUpdate(LoginRequiredMixin, UpdateView):
             return self.request.POST.get('url')
         else:
             return self.success_url
+
+
+class FilesUpdate(LoginRequiredMixin, DetailView):
+    login_url = '/auth/login/'
+    model = Issue
+    form_class = FilesForm
+    template_name = 'files.html'
+    success_url = reverse_lazy('Core:Index')
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['files'] = Files.objects.filter(issue=self.object.id)
+        context['action_url'] = reverse_lazy('ONSite:FilesUpdate', kwargs={'pk': self.object.id})
+        return context
+
+    def post(self, request, *args, **kwargs):
+        file = request.FILES.getlist('file')
+        issue = Issue.objects.get(id=kwargs['pk'])
+        form = self.form_class()
+        messages.success(self.request, "Files Done  ", extra_tags="success")
+
+        if file != None:
+            for f in file:
+                selected_files = f
+                obj=Files()
+                obj.issue = issue
+                obj.name = self.kwargs['pk']
+                obj.files = selected_files
+                obj.save()
+        return HttpResponseRedirect(reverse_lazy('Core:Index'))
+

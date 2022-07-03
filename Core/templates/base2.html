@@ -97,6 +97,7 @@
 
                         </div>
 
+                        <!-- open and close buttons -->
                         <div class="row"
                              role="tablist">
                             <div class="col-auto d-flex flex-column">
@@ -122,14 +123,17 @@
                     </div>
                 </div>
 
+             <!-- end open and close buttons -->
+
+
                 <div class="container-fluid page__container">
                     <div class="page-section">
-
+                      <!-- message div -->
                     {% if messages %}
                                 {% for message in messages %}
                                 <div class="alert alert-{{ message.tags }} alert-dismissible fade show text-center" role="alert">
                                     <i class="mdi mdi-check-all mr-2"></i>
-                                    {{ message|safe }}
+                                   <h2> {{ message|safe }} </h2>
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">×</span>
                                     </button>
@@ -142,16 +146,15 @@
                             <div class="page-separator__text">My Issues</div>
                         </div>
 
-
                         <div class="card mb-lg-32pt">
 
                             <div class="table-responsive"
                                  data-toggle="lists"
                                  data-lists-sort-by="js-lists-values-employee-name"
                                  data-lists-values='["js-lists-values-employee-name", "js-lists-values-employer-name", "js-lists-values-projects", "js-lists-values-activity", "js-lists-values-earnings"]'>
-
-
                             </div>
+
+
                 <div class="container-fluid page__container page__container page-section">
 
 
@@ -162,77 +165,47 @@
 
 
                     <div class="posts-cards mb-24pt" id="issue_list">
-                        {% for x in issue %}
-                         <div class="card posts-card">
-                            <div class="posts-card__content d-flex align-items-center flex-wrap">
-                                <div class="avatar avatar-lg mr-3">
-                                    <a href="">{{ forloop.counter }}</a>
-                                </div>
-                                <div class="posts-card__title flex d-flex flex-column">
-                                    <h5 class="card-title m-0"><a href="" class="headings-color"> {{ x.title }} </a></h5>
-                                    <small class="text-50">Created At:  {{ x.create }} </small>
-                                </div>
-                                <div class="d-flex align-items-center flex-column flex-sm-row posts-card__meta">
-                                    <div class="mr-3 text-50 text-uppercase posts-card__tag d-flex align-items-center">
-                                           {% if x.status.id == 1 %}
-                                               <h4 class="text-danger">{{ x.status }}</h4>
-                                           {% else %}
-                                               <h4 class="text-success">{{ x.status }}</h4>
-                                           {% endif %}
-                                    </div>
-                                    <div class="mr-3 text-50 posts-card__date">
-                                        <h4>{{ x.channel }}</h4>
-                                    </div>
-                                    <div class="mr-3 text-50 posts-card__date">
-                                        <h4>{{ x.module }}</h4>
-                                    </div>
-
-                                </div>
-                                <div class="dropdown ml-auto">
-                                        <a href="#" data-toggle="dropdown" data-caret="false" class="text-muted" aria-expanded="false"><i class="material-icons">more_vert</i></a>
-                                        <div class="dropdown-menu dropdown-menu-right" style="">
-                                            <a href="" class="dropdown-item"><Span><i class="fas fa-reply"></i> Assign</Span></a>
-                                            <a href="{% url 'ONSite:IssueUpdate' x.id %}" data-toggle="modal" data-target="#sub_modal" class="dropdown-item" ><span><i class="fas fa-pencil-alt"></i> Edit</span></a>
-                        {#                    <a href="javascript:void(0)" class="dropdown-item"><span><i class="fas fa-trash"></i> Delete</span></a>#}
-                                        </div>
-                                </div>
-                            </div>
-                        </div>
-                         {% endfor %}
+                                {% for x in issue %}
+        <div class="card posts-card" >
+        <div class="posts-card__content d-flex align-items-center flex-wrap">
+        <div class="mr-4">
+        <h3> #{{ x.id }}</h3>
+        </div>
+        <div class="posts-card__title flex d-flex flex-column">
+        <h5 class="card-title m-0"><a href="" class="headings-color">{% if x.title %} {{ x.title }} {% endif %}</a></h5>
+        <small class="text-50">{% if x.create %} {{ x.create }} {% endif %}</small>
+        </div>
+        <div class="d-flex align-items-center flex-column flex-sm-row posts-card__meta">
+        <div class="mr-3 text-50 text-uppercase posts-card__tag d-flex align-items-center">
+        {% if x.status.id == 1 %}
+        <h4 class="text-danger">{{ x.status }}</h4>
+        {% else %}
+        <h4 class="text-success">{{ x.status }}</h4>
+        {% endif %}
+        </div>
+        <div class="mr-3 text-50 posts-card__date">
+        <h4>{{ x.channel }}</h4>
+        </div>
+        <div class="mr-3 text-50 posts-card__date">
+        <h4>{{ x.module }}</h4>
+        </div>
+        </div>
+        <div class="dropdown ml-auto">
+        <a href="#" data-toggle="dropdown" data-caret="false" aria-expanded="false"><i class="material-icons">more_vert</i></a>
+        <div class="dropdown-menu dropdown-menu-right" style="">
+        <a href="" class="dropdown-item"><Span><i class="fas fa-reply"></i> Assign</Span></a>
+        <a href="{% url 'ONSite:IssueUpdate' x.id %}" data-toggle="modal" data-target="#sub_modal" class="dropdown-item" ><span><i class="fas fa-pencil-alt"></i> Edit</span></a>
+        <a data-target="#sub_modal" class="dropdown-item" data-toggle="modal" href="{% url 'ONSite:FilesUpdate' x.id %}"><span><i class="fas fa-folder-open"></i> Files</span> </a>
+        </div>
+        </div>
+        </div>
+        </div>
+        {% endfor %}
                     </div>
 
 
 
-                    <div class="card p-8pt mb-0 d-inline-block">
 
-                        <ul class="pagination justify-content-start pagination-xsm m-0">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true" class="material-icons">chevron_left</span>
-                                    <span>Prev</span>
-                                </a>
-                            </li>
-                            <li class="page-item dropdown">
-                                <a class="page-link dropdown-toggle" data-toggle="dropdown" href="#" aria-label="Page">
-                                    <span>1</span>
-                                </a>
-                                <div class="dropdown-menu">
-                                    <a href="" class="dropdown-item active">1</a>
-                                    <a href="" class="dropdown-item">2</a>
-                                    <a href="" class="dropdown-item">3</a>
-                                    <a href="" class="dropdown-item">4</a>
-                                    <a href="" class="dropdown-item">5</a>
-                                </div>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                    <span>Next</span>
-                                    <span aria-hidden="true" class="material-icons">chevron_right</span>
-                                </a>
-                            </li>
-                        </ul>
-
-                    </div>
 
                 </div>
                         </div>

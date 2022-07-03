@@ -11,7 +11,7 @@ from .models import *
 # Create your views here.
 
 
-@login_required(login_url='Auth:login')
+@login_required(login_url='Auth:Login')
 def Index(request):
     open_issue = Issue.objects.filter(reporter=request.user, status=Status(1))
     close_issue = Issue.objects.filter(reporter=request.user, status=Status(2))
@@ -61,6 +61,8 @@ def IssueList(request, status):
         'close_issue_count': close_issue_count
     }
     return render(request, 'core/index.html', context)
+
+
 
 def IssueList_div(request, status):
     open_issue = Issue.objects.filter(reporter=request.user, status=Status(1))

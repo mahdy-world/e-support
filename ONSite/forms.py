@@ -1,5 +1,6 @@
 from django import forms
 from Core.models import *
+from .models import *
 
 class CreateIssueForm(forms.ModelForm):
     class Meta:
@@ -20,3 +21,8 @@ class CreateIssueForm(forms.ModelForm):
             'train' : forms.TextInput(attrs={'class':'form-control shadow p-3 mb-5', 'id':'train', 'name':'train'}),
             # 'file' : forms.ClearableFileInput(attrs={'class':'custom-file-input shadow p-3 mb-5', 'id':'file', 'multiple':'True', 'name':'file'}),
         }
+
+class FilesForm(forms.ModelForm):
+    class Meta:
+        model = Files
+        fields = ['files', 'issue']
