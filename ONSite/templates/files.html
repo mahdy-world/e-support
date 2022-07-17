@@ -2,63 +2,84 @@
     <h4 style="margin-left:1%">Files</h4>
 </div>
 
-<div class="card-body">
-
-    <h4>All Files</h4>
-    <div class="row">
-        {% for x in files %}
-                <div class="col-4">
-                    <a href="{{ x.files.url }}" download="{{ x.name }}">{{ x.name }}
-                        <div class="card posts-card-popular">
-                            {% if x.files.url %}
-                                 <img src="{{ x.files.url }}" alt="" class="card-img">
-                                {% else %}
-                                <img src="/e-support/static/assets/images/ecards2.png" alt="" class="card-img">
-                            {% endif %}
-
-                            <div class="posts-card-popular__content">
-                                <div class="posts-card-popular__title card-body">
-                                    <small class="text-muted text-uppercase">File</small>
-                                    <h4 class="card-title m-0"></h4>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-    {% endfor %}
-    </div>
-
-<h4>Add Files</h4>
-        <form method="post" action="{{ action_url }}" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="row">
-
-            {# input for multiple files #}
-            <div class="col-lg-4 col-sm-6" >
-                <div class="form-group">
-                    <label for="file"  class="custom-file-label">Choose file</label>
-                    <input type="file" class="custom-file-input shadow p-3 mb-5" id="file" multiple name="file" >
-                </div>
-            </div>
-
-
-        </div>
-
-        <div class="card-footer">
-             <button type="button" style="float: right; margin-left: 2px"  class="btn btn-danger" data-dismiss="modal">
-                <span> <i class="fas fa-times"></i> Cancel </span>
-             </button>
-
-            <button type="submit" style="float: right" class="btn btn-success">
-                    <span> <i class="fas fa-plus"></i> save</span>
-            </button>
-        </div>
-</form>
-
+{# div files list #}
+<div class="card-body" id="files_div">
+    {% include 'files_div.html' %}
 </div>
 
+{% block script %}
+
+{#  function to check all checkbox  #}
+    <script>
+        $(document).ready(function(){
+            $('#check_all').click(function(){
+            var checked = this.checked;
+            $('input[type="checkbox"]').each(function(){
+                this.checked = checked;
+            });
+        })
+        })
+    </script>
 
 
+
+{# function to delete multiple items  #}
+    <script>
+        $(document).ready(function(){
+            $('#delete_files').click(function(){
+                if(confirm("Are You Sure? ")){
+                    var id = [];
+                $(':checkbox:checked').each(function(i){
+                    id[i]=$(this).val()
+                })
+                if(id.length === 0){
+                    alert("please select files to delete?")
+                }else{
+                    console.log(id);
+                    $.ajax({
+                        url: "{% url 'ONSite:DeleteFiles' %}",
+                        method: "POST",
+                        data:{
+                            id,
+                            csrfmiddlewaretoken: "{{ csrf_token }}",
+                            dataType:"json"
+                        },
+                        success: function (response){
+                            if(response.msg == 1){
+                                 $("#files_div")
+                              .html("&nbsp;")
+                              .load(
+                                "{% url 'ONSite:FilesUpdateDive' object.id %}"
+                              );
+                            }
+
+                        },
+                        failure: function (){
+                            alert("check Files to delete")
+                        }
+                    })
+                }
+
+                }
+            });
+
+
+        })
+    </script>
+
+
+    {#  Relaod Function  #}
+    <script>
+        function updateDiv()
+            {
+                  $("#files_div")
+                  .html("&nbsp;")
+                  .load(
+                    "{% url 'ONSite:FilesUpdateDive' object.id %}")
+            }
+    </script>
+
+{% endblock script %}
 
 
 

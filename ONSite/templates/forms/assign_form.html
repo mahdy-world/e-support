@@ -1,0 +1,99 @@
+
+{% block main %}
+    {% load bootstrap4 %}
+    {% load  crispy_forms_tags %}
+
+<style>
+    .expand_modal {
+        max-width: 100%;
+        margin: 0;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 100vh;
+        display: flex;
+        position: fixed;
+        z-index: 100000;
+    }
+
+</style>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <span class="card-tools" style="float: right">
+                                <button type="button" class="btn btn-tool" data-dismiss="modal">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                 <form method="post" action="{{ action_url }}" enctype="multipart/form-data">
+                        <div class="card-body" style="background-color: #f5f5f5">
+
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-lg-12 col-sm-12">
+                                    <div class="form-group">
+                                        {{form}}
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <input name="url" type="hidden" class="url_input">
+                            <input name="instance" type="hidden"  value="{{ request.user.instance.id }}">
+
+
+                        </div>
+                           <div class="card-footer ">
+
+                                <button type="button"  style="float: right;margin-left: 2px" class="btn btn-outline-danger btn-block-xs" data-dismiss="modal">
+                                   <span> <i class="fas fa-times"></i> Cancel </span>
+                                </button>
+
+                                <button type="submit" style="float: right" class="btn btn-success btn-block-xs">
+                                        {% if message == 'edit' %}
+                                            <span><i class="fa fa-plus"></i> Update </span>
+                                        {% else %}
+                                            <span><i class="fa fa-plus"></i> Assign </span>
+                                        {% endif %}
+                               </button>
+                           </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+{% endblock %}
+
+
+{% block js %}
+
+    <script>
+        function get_url() {
+            var url_input = $('.url_input');
+            url_input.each(function (i) {
+                $(this).val(window.location.href);
+            });
+            return url_input;
+        }
+
+        get_url();
+
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#reporter').select2({width: '100%', placeholder:'Search...'});
+        });
+    </script>
+
+
+
+
+{% endblock %}

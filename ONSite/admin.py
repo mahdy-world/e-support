@@ -1,9 +1,7 @@
-from dataclasses import fields
-from django.contrib import admin
 from django.contrib import admin
 from django import forms
 
-from Core.models import*
+from Core.models import Device
 
 @admin.register(Device)
 class DeviceAdmin(admin.ModelAdmin):

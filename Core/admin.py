@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import *
+from .models import Issue, EnrUser
 # Register your models here.
 @admin.register(Issue)
 class IssuesAdmin(admin.ModelAdmin):

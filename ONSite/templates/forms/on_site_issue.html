@@ -26,14 +26,15 @@
                     <div class="card-header">
                         <div class="card-title">
                             <span class="card-tools" style="float: right">
-                            <button type="button" class="btn btn-tool" data-dismiss="modal">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </span>
+                                <button type="button" class="btn btn-tool" data-dismiss="modal">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </span>
                         </div>
                     </div>
-                    <div class="card-body" style="background-color: #f5f5f5">
-                        <form method="post" action="{{ action_url }}" enctype="multipart/form-data">
+                 <form method="post" action="{{ action_url }}" enctype="multipart/form-data">
+                        <div class="card-body" style="background-color: #f5f5f5">
+
                             {% csrf_token %}
                             <div class="row">
                                 <div class="col-lg-4 col-sm-6">
@@ -53,7 +54,6 @@
                                     </div>
                                 </div>
 
-
                             </div>
 
                             <div class="row">
@@ -70,12 +70,11 @@
                                      </div>
                                 </div>
 
-                                   <div class="col-lg-4 col-sm-6">
+                                <div class="col-lg-4 col-sm-6">
                                     <div class="form-group">
                                         {{form.affects_version|as_crispy_field}}
                                     </div>
                                 </div>
-
 
                             </div>
 
@@ -120,19 +119,20 @@
                             <input name="instance" type="hidden"  value="{{ request.user.instance.id }}">
 
 
-                            <button type="submit" class="btn btn-success">
-                                {% if message == 'edit' %}
-                                    <span><i class="fa fa-plus"></i> Update </span>
-                                {% else %}
-                                    <span><i class="fa fa-plus"></i> Create </span>
-                                {% endif %}
-                            </button>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        </div>
+                       <div class="card-footer">
+                           <button type="submit" class="btn btn-success btn-block-xs">
+                                    {% if message == 'edit' %}
+                                        <span><i class="fa fa-plus"></i> Update </span>
+                                    {% else %}
+                                        <span><i class="fa fa-plus"></i> Create </span>
+                                    {% endif %}
+                           </button>
+                            <button type="button" class="btn btn-outline-danger btn-block-xs" data-dismiss="modal">
                                <span> <i class="fas fa-times"></i> Cancel </span>
                             </button>
-
-                        </form>
-                    </div>
+                       </div>
+                    </form>
 
                 </div>
             </div>

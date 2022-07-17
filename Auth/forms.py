@@ -1,6 +1,6 @@
 from django import forms
 from django.db.models import fields
-from .models import *
+from .models import User
 from .models import User
 
 class ChangePasswordForm(forms.ModelForm):

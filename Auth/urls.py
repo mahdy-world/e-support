@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import *
+from .views import Login, Logout, create_user, Users, UsersUpdate, ChangePassword
 
 app_name = "Auth"
 urlpatterns = [

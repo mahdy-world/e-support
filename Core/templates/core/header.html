@@ -28,7 +28,7 @@
     <div class="nav navbar-nav flex-nowrap d-flex ml-0 mr-16pt">
 
         <div class="nav-item ml-16pt">
-                <a class="sidebar-menu-button"
+                <a
                    href="{% url 'ONSite:CreateIssue' %}" data-toggle="modal" data-target="#sub_modal">
                     <span><i class="fas fa-plus-square"></i></span>
                     <span>Create Issue</span>
@@ -132,7 +132,13 @@
                 <img width="32"
                      height="32"
                      class="rounded-circle mr-8pt"
-                     src="{{ request.user.avater.url }}"
+                     src="
+                        {% if request.user.avater %}
+                            {{ request.user.avater.url }}
+                        {% else %}
+                            /static/assets/images/logo.png
+                        {% endif %}
+                        "
                      alt="account" />
                 <span class="flex d-flex flex-column mr-8pt">
                     <span class="navbar-text-100">{{ request.user.username }}</span>

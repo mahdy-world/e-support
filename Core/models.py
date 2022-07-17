@@ -48,6 +48,7 @@ GANDER = (
     (1, "Female")
 )
 
+
 class EnrUser(models.Model):
     user_name = models.CharField(max_length=50, verbose_name="Username")    
     password = models.CharField(max_length=50, verbose_name="Password")    

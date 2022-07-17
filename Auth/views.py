@@ -1,11 +1,10 @@
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
-from django.views.generic import *
+from django.views.generic import View, ListView, UpdateView
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.views import View
-from django.views.generic import *
 from django.urls import reverse_lazy
 from django.contrib.auth.hashers import check_password
 from .models import User
