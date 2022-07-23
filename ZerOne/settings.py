@@ -47,6 +47,9 @@ INSTALLED_APPS = [
     'crispy_forms',
     'AdminMedule',
     'ONSite',
+    'Tom',
+    'django_user_agents',
+    'rest_framework',
     
 ]
 
@@ -60,7 +63,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'debug_toolbar.middleware.DebugToolbarMiddleware'
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'django_user_agents.middleware.UserAgentMiddleware'
 ]
 
 ROOT_URLCONF = 'ZerOne.urls'
@@ -132,10 +136,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-BASE_DIR / "static",
-    '/var/www/static/',
-]
+STATICFILES_DIRS = [ BASE_DIR / "static",'/var/www/static/',]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = (
@@ -153,6 +154,18 @@ INTERNAL_IPS = [
    
     "127.0.0.1",
 ]
+
+# Cache backend is optional, but recommended to speed up user agent parsing
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
+}
+
+# Name of cache backend to cache user agents. If it not specified default
+# cache alias will be used. Set to `None` to disable caching.
+USER_AGENTS_CACHE = 'default'
 
 
 JAZZMIN_SETTINGS = {

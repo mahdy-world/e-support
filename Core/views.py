@@ -6,6 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Issue, Status
+from django_user_agents.utils import get_user_agent
 
 # Create your views here.
 
@@ -15,6 +16,9 @@ def Index(request):
     # open and clsoe user issue
     open_issue = Issue.objects.filter(reporter=request.user, status=Status(1))
     close_issue = Issue.objects.filter(reporter=request.user, status=Status(2))
+    import subprocess
+    test = subprocess.check_output('wmic bios get serialnumber').decode("utf-8")
+    print(test)
 
     # all user issue
     issue = Issue.objects.filter(reporter=request.user).order_by('-id')
