@@ -6,8 +6,11 @@ class TomCreateSerializer(ModelSerializer):
         model = Tom
         fields = [
             'merchant',
-            'terminalId',
+            'deviceNum',
             'station',
             'stationName',
-            'officeName'
+            'officeEn',
+            'officeAr',
+            'window',
+            'type'
         ]
