@@ -22,7 +22,6 @@ def Index(request):
 
     # all user issue
     issue = Issue.objects.filter(reporter=request.user).order_by('-id')
-
     # return count for open issue and close issue
     open_issue_count = open_issue.count()
     close_issue_count = close_issue.count()
@@ -88,6 +87,5 @@ def IssueList_div(request, status):
     return render(request, 'on_site_issue_div.html', context)
 
 
- 
 
 

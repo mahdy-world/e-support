@@ -17,11 +17,15 @@ class MyIssue(LoginRequiredMixin, ListView):
     login_url = '/auth/login'
     model = Issue
     paginate = 50
+    template_name = 'Core/index.html'
 
-    def get_queryset(self, request):
-        queryset = self.model.objects.filter(user=request.user)
+    def get_queryset(self):
+        queryset = self.model.objects.filter(reporter=self.request.user)
         return queryset
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['issue'] = self.queryset
 
 
 class CreateIssue(LoginRequiredMixin, FormView):
@@ -150,7 +154,6 @@ class FilesUpdateDive(LoginRequiredMixin, DetailView):
 
 
 
-
 # delete multiple items
 def DeleteFiles(request):
     if request.method == "POST":
@@ -187,3 +190,16 @@ class AssignIssue(LoginRequiredMixin, UpdateView):
             return self.request.POST.get('url')
         else:
             return self.success_url
+
+
+class IssueDetails(LoginRequiredMixin, DetailView):
+    login_url = '/auth/login/'
+    model = Issue
+    template_name = 'issue_details.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+
+

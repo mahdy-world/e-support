@@ -13,15 +13,13 @@
     <script>
         $(document).ready(function(){
             $('#check_all').click(function(){
-            var checked = this.checked;
-            $('input[type="checkbox"]').each(function(){
-                this.checked = checked;
-            });
-        })
+                var checked = this.checked;
+                $('input[type="checkbox"]').each(function(){
+                    this.checked = checked;
+                });
+            })
         })
     </script>
-
-
 
 {# function to delete multiple items  #}
     <script>
