@@ -26,7 +26,7 @@ class MyIssue(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['issue'] = self.queryset
-
+        return context
 
 class CreateIssue(LoginRequiredMixin, FormView):
     login_url = '/auth/login'
@@ -199,6 +199,8 @@ class IssueDetails(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['files'] = Files.objects.filter(issue=self.object)
+        print(Files.objects.filter(issue__files=self.object.id))
         return context
 
 

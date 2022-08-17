@@ -190,56 +190,174 @@
 
                         <div class="card mb-lg-32pt">
                             <div class="container-fluid page__container page__container page-section">
-                                <div class="posts-cards mb-24pt">
+                                <h2>Details</h2>
+                                <div class="posts-cards">
+
+                                    {% comment %}Data Details Row {% endcomment %}
+                                    <div class="row mt-4">
+                                        <div class="col-md-4">
+                                             <ul class="text-secondary" style="list-style: none; padding-left: 15px;">
+                                                <li><p>Status: <span class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.status}}</span></p></li>
+                                                <li><p>Type: <span class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.issue_type }}</span></p></li>
+                                                <li><p>Channel: <span class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.channel }}</span></p></li>
+                                                <li><p>Module: <span class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.module }}</span></p></li>
+                                                <li><p>Device Serial: <span class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.device_serial }}</span></p></li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                              <ul class="text-secondary" style="list-style: none; padding-left: 15px;">
+                                                    <li><p>Issue Type:  <span class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.issue_type }}</span></p></li>
+                                                    <li><p>Affec's Version:  <span  class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.affects_version }}</span></p></li>
+                                                    <li><p>Fix's Vesrion:  <span class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.fix_version}}</span></p></li>
+                                                    <li><p>Station:  <span class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.station }}</span></p></li>
+                                              </ul>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                             <ul class="text-secondary" style="list-style: none; padding-left: 15px;">
+                                                <li><p>Created At:  <span class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.create }}</span></p></li>
+                                                <li><p>Updated At:  <span  class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.last_update }}</span></p></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                   {% comment %} Description Row {% endcomment %}
                                     <div class="row">
-                                        <div class="col-md-8  rounded box-shadow">
-                                           <div class="row">
-                                               <div class="col-md-6">
-                                                    <span style="font-size: 18px"><i class="fas fa-caret-down"></i> </span> <span class="font-weight-bold" style="font-size: 14px">Details</span>
-                                                    <ul class="text-secondary" style="list-style: none; padding: 15px;">
-                                                        <li><p>Type: <span style="font-weight: bold; margin-left: 5%">{{ object.issue_type }}</span></p></li>
-                                                        <li><p>Priority: <span style="font-weight: bold; margin-left: 5%">{{ object.priority }}</span></p></li>
-                                                        <li><p>Issue Class: <span style="font-weight: bold; margin-left: 5%">{{ object.issue_class }}</span></p></li>
-                                                        <li><p>Channel: <span style="font-weight: bold; margin-left: 5%">{{ object.channel }}</span></p></li>
-                                                        <li><p>Module: <span style="font-weight: bold; margin-left: 5%">{{ object.module }}</span></p></li>
-                                                        <li><p>Device Serial: <span style="font-weight: bold; margin-left: 5%">{{ object.device_serial }}</span></p></li>
-                                                    </ul>
-                                              </div>
-
-                                            <div class="col-md-6 rounded box-shadow">
-                                                <ul class="text-secondary" style="list-style: none; padding: 15px; margin-top: 25px">
-                                                        <li><p>Status:  <span style="font-weight: bold; margin-left: 5%">{{ object.status}}</span></p></li>
-                                                        <li><p>Issue Type:  <span style="font-weight: bold; margin-left: 5%">{{ object.issue_type }}</span></p></li>
-                                                        <li><p>Affec's Version:  <span style="font-weight: bold; margin-left: 5%">{{ object.affects_version }}</span></p></li>
-                                                        <li><p>Fix's Vesrion:  <span style="font-weight: bold; margin-left: 5%">{{ object.fix_version}}</span></p></li>
-                                                        <li><p>Station:  <span style="font-weight: bold; margin-left: 5%">{{ object.station }}</span></p></li>
-                                                </ul>
-                                            </div>
-                                           </div>
-                                        </div>
-
-
-                                        <div class="col-md-4  rounded box-shadow">
+                                       <div class="col-md-12">
                                             <span style="font-size: 18px"><i class="fas fa-caret-down"></i> </span>
-                                            <span class="font-weight-bold" style="font-size: 14px">Actions</span>
-                                        </div>
-
-                                         <div class="col-md-6 rounded box-shadow">
-                                              <span style="font-size: 18px"><i class="fas fa-caret-down"></i> </span>
-                                                <span class="font-weight-bold" style="font-size: 14px">Descriptaions</span>
-                                         </div>
-
-
+                                         <span class="font-weight-bold" style="font-size: 16px">Descriptaions</span>
+                                         <textarea  rows="10" class="form-control" name="comment" id="comment" readonly autofocus>{{ object.description }}</textarea>
+                                       </div>
                                     </div>
                                 </div>
+                            </div>
+                                 <div class="card-footer">
 
+                                                <button style="float: left; margin-left: 2px" class="btn btn-outline-warning btn-block-xs" onclick="updateDiv()"><span><i class="fas fa-sync"></i> Refrach</span></button>
+
+                                                <button type="submit" style="float: right" class="btn btn-info btn-block-xs">
+                                                        <span> <i class="fas fa-save"></i> save</span>
+                                                </button>
+                                </div>
+                        </div>
+
+                        <div class="card mb-lg-32pt">
+                            <div class="container-fluid page__container page__container page-section">
+                            <h2>Files</h2>
+                                <div class="row">
+                                            {% if files %}
+                                            {% for x in files %}
+                                                <div class="col-md-6 col-lg-4 col-sm-4">
+                                                    <a href="{{ x.files.url }}" download="{{ x.name }}">
+                                                        <input type="checkbox" name="file_id" style="width:15px; height:15px" value="{{ x.id }}" id="delete_file">
+                                                        <div class="card posts-card-popular">
+
+                                                            {# check extension file uisng slice #}
+                                                            {% if x.files.url|slice:"-4:" == ".png" or x.files.url|slice:"-4:" == ".jpg"  %}
+                                                                 <img src="{{ x.files.url }}" alt="" class="card-img">
+                                                            {% else %}
+                                                                <img src="/static/assets/images/file.png" alt="file" class="card-img">
+                                                            {% endif %}
+                                                        </div>
+                                                        <span style="display: block">{{ x.files|truncatechars:30}}</span>
+                                                        <span class="text-primary">{{ x.created }}</span>
+                                                    </a>
+                                                </div>
+                                            {% endfor %}
+                                            {% endif %}
+
+
+                                    {% block script %}
+
+
+                                        {#  delete multiple items  #}
+                                        <script>
+                                            $(document).ready(function(){
+                                                $('#delete_files').click(function(){
+                                                    if(confirm("Are You Sure? ")){
+                                                        var id = [];
+                                                    $(':checkbox:checked').each(function(i){
+                                                        id[i]=$(this).val()
+                                                    })
+                                                    if(id.length===0){
+                                                        alert("please select files to delete?")
+                                                    }else{
+                                                        console.log(id);
+                                                        $.ajax({
+                                                            url: "{% url 'ONSite:DeleteFiles' %}",
+                                                            method: "POST",
+                                                            data:{
+                                                                id,
+                                                                csrfmiddlewaretoken: "{{ csrf_token }}",
+                                                                dataType:"json"
+                                                            },
+                                                            success: function (response){
+                                                                if(response.msg == 1){
+                                                                     $("#files_div")
+                                                                  .html("&nbsp;")
+                                                                  .load(
+                                                                    "{% url 'ONSite:FilesUpdateDive' object.id %}"
+                                                                  );
+                                                                }
+
+                                                            },
+                                                            failure: function (){
+                                                                alert("check Files to delete")
+                                                            }
+                                                        })
+                                                    }
+
+                                                    }
+                                                })
+                                            })
+                                        </script>
+                                            <script>
+                                            function updateDiv()
+                                                {
+                                                      $("#files_div")
+                                                      .html("&nbsp;")
+                                                      .load(
+                                                        "{% url 'ONSite:FilesUpdateDive' object.id %}")
+                                                }
+                                            </script>
+                                    {% endblock script %}
+                                    </div>
+
+                                    <div class="row " style="margin-top:50px">
+                                            <form method="post" action="{{ action_url }}" enctype="multipart/form-data">
+                                                {% csrf_token %}
+                                                {# input for multiple files #}
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <input type="file"  id="file" multiple name="file"  width="100%">
+                                                        </div>
+                                                    </div>
+                                            </form>
+                                    </div>
+
+
+                                      <div class="card-footer">
+
+                                             {% if files %}
+                                                <a href="#" class="btn btn-outline-accent-red btn-block-xs" name="delete_files"
+                                                   id="delete_files" style="margin-left: 2px; float: left"><span><i class="fas fa-trash-alt"></i> Delete Selected</span></a>
+                                            {% endif %}
+
+
+                                            <button style="float: left; margin-left: 2px" class="btn btn-outline-warning btn-block-xs" onclick="updateDiv()"><span><i class="fas fa-sync"></i> Refrach</span></button>
+
+                                            <button type="submit" style="float: right" class="btn btn-info btn-block-xs">
+                                                    <span> <i class="fas fa-save"></i> save</span>
+                                            </button>
+                                      </div>
                             </div>
                         </div>
 
-                            <h2>Comments</h2>
-                           <div class="posts-cards mb-24pt">
-                                <div class="card card-body">
 
+                           <div class="posts-cards mb-lg-32pt">
+                               <h2>Comments</h2>
+                                <div class="card card-body">
                                     <div class="d-flex">
                                         <a href="" class="avatar avatar-32pt avatar-online mr-12pt">
                                             <img src="/static/huma/assets/images/people/256/256_rsz_nicolas-horn-689011-unsplash.jpg" alt="people" class="avatar-img rounded-circle">

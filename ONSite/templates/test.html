@@ -1,0 +1,36 @@
+
+     <div class="col-md-8  rounded box-shadow">
+       <div class="row">
+           <div class="col-md-6">
+                <span style="font-size: 18px"><i class="fas fa-caret-down"></i> </span>
+               <span class="font-weight-bold " style="font-size:16px">Details</span>
+                <ul class="text-secondary" style="list-style: none; padding: 15px;">
+                    <li><p>Status: <span class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.status}}</span></p></li>
+                    <li><p>Type: <span class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.issue_type }}</span></p></li>
+                    <li><p>Channel: <span class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.channel }}</span></p></li>
+                    <li><p>Module: <span class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.module }}</span></p></li>
+                    <li><p>Device Serial: <span class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.device_serial }}</span></p></li>
+                </ul>
+          </div>
+
+        <div class="col-md-6 rounded box-shadow">
+            <ul class="text-secondary" style="list-style: none; padding: 15px; margin-top: 25px">
+                    <li><p>Issue Type:  <span class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.issue_type }}</span></p></li>
+                    <li><p>Affec's Version:  <span  class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.affects_version }}</span></p></li>
+                    <li><p>Fix's Vesrion:  <span class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.fix_version}}</span></p></li>
+                    <li><p>Station:  <span class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.station }}</span></p></li>
+            </ul>
+        </div>
+       </div>
+    </div>
+
+
+    <div class="col-md-4  rounded box-shadow">
+        <span style="font-size: 18px"><i class="fas fa-caret-down"></i> </span>
+        <span class="font-weight-bold" style="font-size: 16px">Dates</span>
+        <ul class="text-secondary" style="list-style: none; padding: 15px;">
+                    <li><p>Created At:  <span class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.issue_type }}</span></p></li>
+                    <li><p>Updated At:  <span  class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.affects_version }}</span></p></li>
+        </ul>
+    </div>
+
