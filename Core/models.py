@@ -3,10 +3,10 @@ from django.db import models
 from Auth.models import User
 from django.contrib.contenttypes.fields import GenericRelation
 from comment.models import Comment
+from django.urls import reverse
 
 
-# Create your models here.
-
+# Tom Module
 class Device(models.Model):
     station_name = models.CharField(max_length=50, verbose_name="Station Name", null=True, blank=True)
     office_name = models.CharField(max_length=50, verbose_name="Office Name", null=True, blank=True)
@@ -16,6 +16,42 @@ class Device(models.Model):
         return self.serial_number
 
 
+# Train Module
+class Train(models.Model):
+    name = models.CharField(max_length=50, null=True, blank=True, verbose_name="Train Name")
+    t_from = models.CharField(max_length=50, null=True, blank=True, verbose_name="From")
+    t_to = models.CharField(max_length=50, null=True, blank=True, verbose_name="To")
+    number = models.IntegerField(verbose_name="Train Number")
+
+    def __str__(self):
+        return self.number
+
+
+
+GANDER = (
+    (0, "Male"),
+    (1, "Female")
+)
+
+# Enr Users Module
+class EnrUser(models.Model):
+    user_name = models.CharField(max_length=50, verbose_name="Username")
+    password = models.CharField(max_length=50, verbose_name="Password")
+    last_name = models.CharField(max_length=50, verbose_name="Last Name")
+    first_name = models.CharField(max_length=50, verbose_name="First Name", null=True, blank=True)
+    patronymic_name = models.CharField(max_length=50, verbose_name="Patronymic Name", null=True, blank=True)
+    phone = models.CharField(max_length=50, verbose_name="Phone", null=True, blank=True)
+    gander = models.IntegerField(choices=GANDER, verbose_name="Gander", null=True, blank=True)
+    active = models.BooleanField(verbose_name="Active", null=True, blank=True)
+    groups = models.TextField(verbose_name="Groups", null=True, blank=True)
+    merchant_login = models.CharField(max_length=200, verbose_name="Marchent", null=True, blank=True)
+    user = models.CharField(max_length=100, verbose_name="User", null=True, blank=True)
+
+    def __str__(self):
+        return self.user_name
+
+
+# Issue Module
 class Issue(models.Model):
     environment = models.ForeignKey(Environment, on_delete=models.CASCADE, verbose_name="Environment", null=True, blank=True)
     issue_class = models.ForeignKey(IssueClass, on_delete=models.CASCADE, verbose_name="Issue Class", null=True, blank=True)
@@ -27,48 +63,33 @@ class Issue(models.Model):
     module = models.ForeignKey(Module, on_delete=models.CASCADE, verbose_name="Module")
     device_serial = models.ForeignKey(Device, on_delete=models.CASCADE, null=True, blank=True,verbose_name="Device Serial")
 
-    screen = models.CharField(max_length=100, verbose_name="Screen", null=True, blank=True)
-    field = models.CharField(max_length=100, verbose_name="Field", null=True, blank=True)
     description = models.TextField(verbose_name="Description")
-    # last_comment = models.TextField(verbose_name="Last Comment", null=True, blank=True)
     title = models.CharField(max_length=200, verbose_name="Title")
-    jira_id = models.CharField(max_length=150, verbose_name="Jira Id", null=True, blank=True)
-    creator = models.CharField(max_length=100, verbose_name= "Creator", null=True, blank=True)
-    create= models.DateTimeField(verbose_name="Create Date", null=True, blank=True)
-    last_update = models.DateTimeField(verbose_name="Last Update", null=True, blank=True)
-    folder_id = models.IntegerField(verbose_name = "Folder Id", null=True, blank=True)
+    jira_id = models.CharField(max_length=20, verbose_name="Jira Id", null=True, blank=True)
+    follwer = models.ForeignKey(User, related_name="issue_follwer", on_delete=models.CASCADE, verbose_name= "Follwer", null=True, blank=True)
+    create_date= models.DateTimeField(verbose_name="Create Date", null=True, blank=True)
+    update_date = models.DateTimeField(verbose_name="Last Update", null=True, blank=True)
 
     affects_version = models.FloatField(verbose_name="Affects Version", null=True, blank=True)
     fix_version = models.FloatField(verbose_name="Fix Version", null=True, blank=True)
-    supscription_type = models.CharField(max_length=50, null=True, blank=True, verbose_name="Supscription Type")
-    train = models.CharField(max_length=50,null=True, blank=True, verbose_name="Train")
+    train = models.ForeignKey(Train, on_delete=models.CASCADE,   null=True, blank=True, verbose_name="Train")
+    teller = models.ForeignKey(EnrUser, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Teller")
     station = models.ForeignKey(Station, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Station")
     comments = GenericRelation(Comment)
 
-    from django.urls import reverse
+    subscription_type = models.CharField(max_length=50, null=True, blank=True, verbose_name="Subscription Type")
+    subscription_number = models.IntegerField(null=True, blank=True, verbose_name="Subscription Number")
+    subscription_expiry_date = models.DateField(null=True, blank=True, verbose_name="Subscription Expiry Date")
+
+    teller_name = models.CharField(max_length=50, null=True, blank=True, verbose_name="Teller Name")
+    teller_phone = models.CharField(max_length=15, null=True, blank=True, verbose_name="Teller phone")
+
+    trans_number = models.CharField(max_length=10, null=True, blank=True, verbose_name="M#")
+
 
     def get_absolute_url(self):
         return reverse('ONSite:IssueUpdate', kwargs={'pk': self.id})
     
 
-GANDER = (
-    (0, "Male"),
-    (1, "Female")
-)
 
 
-class EnrUser(models.Model):
-    user_name = models.CharField(max_length=50, verbose_name="Username")    
-    password = models.CharField(max_length=50, verbose_name="Password")    
-    last_name = models.CharField(max_length=50, verbose_name="Last Name")    
-    first_name = models.CharField(max_length=50, verbose_name="First Name" , null=True, blank=True)    
-    patronymic_name = models.CharField(max_length=50, verbose_name="Patronymic Name" , null=True, blank=True)    
-    phone = models.CharField(max_length=50, verbose_name="Phone" , null=True, blank=True)
-    gander = models.IntegerField(choices=GANDER, verbose_name="Gander" , null=True, blank=True)
-    active = models.BooleanField(verbose_name="Active" , null=True, blank=True)
-    groups = models.TextField(verbose_name="Groups" , null=True, blank=True)
-    merchant_login = models.CharField(max_length=200, verbose_name="Marchent" , null=True, blank=True) 
-    user = models.CharField(max_length=100, verbose_name="User" , null=True, blank=True)
-    
-    def __str__(self):
-        return self.user_name 

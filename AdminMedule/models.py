@@ -50,7 +50,7 @@ class Module(models.Model):
 class Station(models.Model):
     station_type = models.CharField(max_length=100, verbose_name="Station Type")
     english_name = models.CharField(max_length=100, verbose_name="English Name")
-    arabic_name = models.CharField(max_length=100, verbose_name="Arabic Name")
+    arabic_name = models.CharField(max_length=100, verbose_name="Station")
     code = models.IntegerField(verbose_name="Code")
     merchant_name = models.CharField(max_length=100, verbose_name="Merchant Name")
     

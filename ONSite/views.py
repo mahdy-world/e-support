@@ -42,12 +42,14 @@ class CreateIssue(LoginRequiredMixin, FormView):
         context['title'] = 'New Issue'
         context['message'] = 'add'
         context['action_url'] = reverse_lazy('ONSite:CreateIssue')
+
         return context
 
     # create with save multiple file
     def post(self, request, *args, **kwargs):
         form_class = self.get_form_class()
         form = self.get_form(form_class)
+        print(form)
         issue = form.save(commit=False)
         file = request.FILES.getlist('file')
 
@@ -55,7 +57,7 @@ class CreateIssue(LoginRequiredMixin, FormView):
             issue = form.save(commit=False)
             issue.reporter = request.user
             issue.status = Status(1)
-            issue.create = datetime.date.today()
+            issue.create_date = datetime.date.today()
             issue.save()
             if file != None:
                 for f in file:
@@ -86,7 +88,7 @@ class IssueUpdate(LoginRequiredMixin, UpdateView):
         form.save()
         obj = form.save(commit=False)
         myform = Issue.objects.get(id=obj.id)
-        myform.last_update = datetime.datetime.now()
+        myform.update_date = datetime.datetime.now()
         myform.save()
         return redirect('ONSite:IssueDetails' , pk=myform.id)
 
