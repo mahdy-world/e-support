@@ -11,40 +11,44 @@
         <span class="material-icons">menu</span>
     </button>
 
-    <!-- Navbar Brand -->
-    <a href="index.html"
-       class="navbar-brand mr-16pt d-lg-none">
-        <img class="navbar-brand-icon mr-0 mr-lg-8pt"
-             src="/static/assets/images/ecards2.png"
-             width="32"
-             alt="Huma">
-        <span class="d-none d-lg-block">E-support</span>
-    </a>
+{#    <!-- Navbar Brand -->#}
+{#    <a href="{% url 'Core:Index' %}"#}
+{#       class="navbar-brand mr-16pt d-lg-none">#}
+{#        <img class="navbar-brand-icon mr-0 mr-lg-8pt"#}
+{#             src="/static/assets/images/ecards2.png"#}
+{#             width="32"#}
+{#             alt="Huma">#}
+{#        <span class="d-none d-lg-block">E-support</span>#}
+{#    </a>#}
 
+ <div class="flex-nowrap">
+     <div class="nav-item ml-16pt ">
+        <a class="btn btn-outline-info " style="width: 100%"  href="{% url 'Core:Index' %}"  >
+            <span><i class="fas fa-list"></i> </span>
+        </a>
+     </div>
 
-    <div class="flex">
+ </div>
+
+ <div class="nav-item ml-16pt">
+            <a class="btn btn-outline-info "  href="{% url 'ONSite:CreateIssue' %}" data-toggle="modal" data-target="#sub_modal">
+               <span><i class="fas fa-filter"></i></span>
+            </a>
     </div>
 
+<div class="flex">
+     <div class="nav-item ml-16pt">
+            <a class="btn btn-outline-info "  href="{% url 'ONSite:CreateIssue' %}" data-toggle="modal" data-target="#sub_modal">
+               <span><i class="fas fa-plus-square"></i></span>
+            </a>
+    </div>
+
+</div>
+
+
     <div class="nav navbar-nav flex-nowrap d-flex ml-0 mr-16pt">
-
-        <div class="nav-item ml-16pt">
-                <a
-                   href="{% url 'ONSite:CreateIssue' %}" data-toggle="modal" data-target="#sub_modal">
-                    <span><i class="fas fa-plus-square"></i></span>
-                    <span>Create Issue</span>
-                </a>
-        </div>
-
-          <div class="nav-item ml-16pt ">
-                <a  href="{% url 'Core:Index' %}"
-                  style="cursor: pointer">
-                    <span><i class="fas fa-list"></i></span>
-                    <span>My Issues</span>
-                </a>
-          </div>
-
         <!-- Notifications dropdown -->
-        <div class="nav-item ml-16pt dropdown dropdown-notifications">
+        <div class="nav-item mr-auto dropdown dropdown-notifications">
             <button class="nav-link btn-flush dropdown-toggle"
                     type="button"
                     data-toggle="dropdown"

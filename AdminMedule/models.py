@@ -10,6 +10,8 @@ class Environment(models.Model):
     
 class IssueType(models.Model):
     name = models.CharField(max_length=50, verbose_name="name")
+    icon = models.CharField(max_length=50, null=True, blank=True, verbose_name="icon")
+    color = models.CharField(max_length=50, null=True, blank=True, verbose_name="color")
     def __str__(self):
         return self.name
     
@@ -22,6 +24,7 @@ class Priroty(models.Model):
     
 class Status(models.Model):
     name = models.CharField(max_length=50, verbose_name="name")
+    color = models.CharField(max_length=50,null=True, blank=True,  verbose_name="Color Class")
     def __str__(self):
         return self.name
 

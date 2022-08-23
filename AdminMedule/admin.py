@@ -10,8 +10,8 @@ class EvairomentAdmin(admin.ModelAdmin):
     
 @admin.register(IssueType)
 class IssueTypeAdmin(admin.ModelAdmin):
-    list_display = ("id", "name")
-    list_filter = ("name", "id")
+    list_display = ("id", "name", "icon", "color")
+    list_filter = ("name", "id", "icon", "color")
     
 @admin.register(Priroty)
 class PrirotyAdmin(admin.ModelAdmin):
@@ -20,7 +20,7 @@ class PrirotyAdmin(admin.ModelAdmin):
     
 @admin.register(Status)
 class StatusAdmin(admin.ModelAdmin):
-    list_display = ("id", "name")
+    list_display = ("id", "name", "color")
     list_filter = ("name", "id")
     
 @admin.register(IssueClass)

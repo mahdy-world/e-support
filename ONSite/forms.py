@@ -21,6 +21,8 @@ class CreateIssueForm(forms.ModelForm):
             # 'file' : forms.ClearableFileInput(attrs={'class':'custom-file-input shadow p-3 mb-5', 'id':'file', 'multiple':'True', 'name':'file'}),
         }
 
+
+
 class FilesForm(forms.ModelForm):
     class Meta:
         model = Files

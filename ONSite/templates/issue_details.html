@@ -1,165 +1,5 @@
 {% extends 'base1.html' %}
-
-{% block Header %}
-    <div class="navbar navbar-expand navbar-shadow px-0  pl-lg-16pt navbar-light bg-body"
-                     id="default-navbar"
-                     data-primary>
-
-                    <!-- Navbar toggler -->
-                    <button class="navbar-toggler d-block d-lg-none rounded-0"
-                            type="button"
-                            data-toggle="sidebar">
-                        <span class="material-icons">menu</span>
-                    </button>
-
-                    <!-- Navbar Brand -->
-                    <a href="index.html"
-                       class="navbar-brand mr-16pt d-lg-none">
-                        <img class="navbar-brand-icon mr-0 mr-lg-8pt"
-                             src="/static/assets/images/ecards2.png"
-                             width="32"
-                             alt="Huma">
-                        <span class="d-none d-lg-block">E-support</span>
-                    </a>
-
-
-                    <div class="flex">
-                    </div>
-
-                    <div class="nav navbar-nav flex-nowrap d-flex ml-0 mr-16pt">
-
-                        <div class="nav-item ml-16pt">
-                                <a
-                                   href="{% url 'ONSite:CreateIssue' %}" data-toggle="modal" data-target="#sub_modal">
-                                    <span><i class="fas fa-plus-square"></i></span>
-                                    <span>Create Issue</span>
-                                </a>
-                        </div>
-
-                          <div class="nav-item ml-16pt ">
-                                <a href="{% url 'ONSite:MyIssue' %}"
-                                   style="cursor: pointer">
-                                    <span><i class="fas fa-list"></i></span>
-                                    <span>My Issues</span>
-                                </a>
-                          </div>
-
-                        <!-- Notifications dropdown -->
-                        <div class="nav-item ml-16pt dropdown dropdown-notifications">
-                            <button class="nav-link btn-flush dropdown-toggle"
-                                    type="button"
-                                    data-toggle="dropdown"
-                                    data-dropdown-disable-document-scroll
-                                    data-caret="false">
-                                <i class="material-icons">notifications</i>
-                                <span class="badge badge-notifications badge-accent">2</span>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <div data-perfect-scrollbar
-                                     class="position-relative">
-                                    <div class="dropdown-header"><strong>System notifications</strong></div>
-                                    <div class="list-group list-group-flush mb-0">
-
-                                        <a href="javascript:void(0);"
-                                           class="list-group-item list-group-item-action unread">
-                                            <span class="d-flex align-items-center mb-1">
-                                                <small class="text-black-50">3 minutes ago</small>
-
-                                                <span class="ml-auto unread-indicator bg-accent"></span>
-
-                                            </span>
-                                            <span class="d-flex">
-                                                <span class="avatar avatar-xs mr-2">
-                                                    <span class="avatar-title rounded-circle bg-light">
-                                                        <i class="material-icons font-size-16pt text-accent">account_circle</i>
-                                                    </span>
-                                                </span>
-                                                <span class="flex d-flex flex-column">
-
-                                                    <span class="text-black-70">Your profile information has not been synced correctly.</span>
-                                                </span>
-                                            </span>
-                                        </a>
-
-                                        <a href="javascript:void(0);"
-                                           class="list-group-item list-group-item-action">
-                                            <span class="d-flex align-items-center mb-1">
-                                                <small class="text-black-50">5 hours ago</small>
-
-                                            </span>
-                                            <span class="d-flex">
-                                                <span class="avatar avatar-xs mr-2">
-                                                    <span class="avatar-title rounded-circle bg-light">
-                                                        <i class="material-icons font-size-16pt text-primary">group_add</i>
-                                                    </span>
-                                                </span>
-                                                <span class="flex d-flex flex-column">
-                                                    <strong class="text-black-100">Adrian. D</strong>
-                                                    <span class="text-black-70">Wants to join your private group.</span>
-                                                </span>
-                                            </span>
-                                        </a>
-
-                                        <a href="javascript:void(0);"
-                                           class="list-group-item list-group-item-action">
-                                            <span class="d-flex align-items-center mb-1">
-                                                <small class="text-black-50">1 day ago</small>
-
-                                            </span>
-                                            <span class="d-flex">
-                                                <span class="avatar avatar-xs mr-2">
-                                                    <span class="avatar-title rounded-circle bg-light">
-                                                        <i class="material-icons font-size-16pt text-warning">storage</i>
-                                                    </span>
-                                                </span>
-                                                <span class="flex d-flex flex-column">
-
-                                                    <span class="text-black-70">Your deploy was successful.</span>
-                                                </span>
-                                            </span>
-                                        </a>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- // END Notifications dropdown -->
-
-
-                        <div class="nav-item dropdown d-none d-sm-flex">
-                            <a href="#"
-                               class="nav-link d-flex align-items-center dropdown-toggle"
-                               data-toggle="dropdown">
-                                <img width="32"
-                                     height="32"
-                                     class="rounded-circle mr-8pt"
-                                     src="
-                                        {% if request.user.avater %}
-                                            {{ request.user.avater.url }}
-                                        {% else %}
-                                            /static/assets/images/logo.png
-                                        {% endif %}
-                                        "
-                                     alt="account" />
-                                <span class="flex d-flex flex-column mr-8pt">
-                                    <span class="navbar-text-100">{{ request.user.username }}</span>
-                                    <small class="navbar-text-50">Admin</small>
-                                </span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                {#                <div class="dropdown-header"><strong>Account</strong></div>#}
-                {#                <a class="dropdown-item"#}
-                {#                   href="edit-account.html">Edit Account</a>#}
-                                <a class="dropdown-item"
-                                   href="{% url 'Auth:Logout' %}">Logout</a>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-{% endblock %}
-
+{% load comment_tags %}
 
 {% block container %}
       <div class="container-fluid page__container">
@@ -197,8 +37,8 @@
                                     <div class="row mt-4">
                                         <div class="col-md-4">
                                              <ul class="text-secondary" style="list-style: none; padding-left: 15px;">
-                                                <li><p>Status: <span class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.status}}</span></p></li>
-                                                <li><p>Type: <span class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.issue_type }}</span></p></li>
+                                                <li><p>Status: <span class=" {{ object.status.color }}" style="font-weight: bold; margin-left: 5%">{{ object.status}}</span></p></li>
+                                                <li><p>Type: <i style="margin-left: 5%" class="{{ object.issue_type.icon}} {{ object.issue_type.color }}"></i> <span class="text-dark" style="font-weight: bold;">{{ object.issue_type }}</span></p></li>
                                                 <li><p>Channel: <span class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.channel }}</span></p></li>
                                                 <li><p>Module: <span class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.module }}</span></p></li>
                                                 <li><p>Device Serial: <span class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.device_serial }}</span></p></li>
@@ -207,7 +47,6 @@
 
                                         <div class="col-md-4">
                                               <ul class="text-secondary" style="list-style: none; padding-left: 15px;">
-                                                    <li><p>Issue Type:  <span class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.issue_type }}</span></p></li>
                                                     <li><p>Affec's Version:  <span  class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.affects_version }}</span></p></li>
                                                     <li><p>Fix's Vesrion:  <span class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.fix_version}}</span></p></li>
                                                     <li><p>Station:  <span class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.station }}</span></p></li>
@@ -233,22 +72,19 @@
                                 </div>
                             </div>
                                  <div class="card-footer">
-
-                                                <button style="float: left; margin-left: 2px" class="btn btn-outline-warning btn-block-xs" onclick="updateDiv()"><span><i class="fas fa-sync"></i> Refrach</span></button>
-
-                                                <button type="submit" style="float: right" class="btn btn-info btn-block-xs">
-                                                        <span> <i class="fas fa-save"></i> save</span>
-                                                </button>
+                                    <a href="{% url 'ONSite:IssueUpdate' object.id %}" data-toggle="modal" data-target="#sub_modal" style="float: right" class="btn btn-warning btn-block-xs">
+                                            <span> <i class="fas fa-edit"></i> Edit</span>
+                                    </a>
                                 </div>
                         </div>
 
-                        <div class="card mb-lg-32pt">
+                        <div class="card mb-lg-32pt" id="files_div">
                             <div class="container-fluid page__container page__container page-section">
                             <h2>Files</h2>
                                 <div class="row">
                                             {% if files %}
                                             {% for x in files %}
-                                                <div class="col-md-6 col-lg-4 col-sm-4">
+                                                <div class="col-md-4 col-lg-3 col-sm-3">
                                                     <a href="{{ x.files.url }}" download="{{ x.name }}">
                                                         <input type="checkbox" name="file_id" style="width:15px; height:15px" value="{{ x.id }}" id="delete_file">
                                                         <div class="card posts-card-popular">
@@ -312,81 +148,48 @@
                                                 })
                                             })
                                         </script>
+
                                             <script>
-                                            function updateDiv()
-                                                {
+                                                function updateDiv()
+                                                    {
                                                       $("#files_div")
                                                       .html("&nbsp;")
                                                       .load(
                                                         "{% url 'ONSite:FilesUpdateDive' object.id %}")
-                                                }
+                                                    }
                                             </script>
+
+
+
                                     {% endblock script %}
                                     </div>
-
+                                     <form method="post" action="{{ action_url }}" enctype="multipart/form-data">
                                     <div class="row " style="margin-top:50px">
-                                            <form method="post" action="{{ action_url }}" enctype="multipart/form-data">
-                                                {% csrf_token %}
-                                                {# input for multiple files #}
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <input type="file"  id="file" multiple name="file"  width="100%">
-                                                        </div>
+
+                                            {% csrf_token %}
+                                            {# input for multiple files #}
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <input type="file"  id="file" multiple name="file"  width="100%">
                                                     </div>
-                                            </form>
+                                                </div>
+
                                     </div>
-
-
-                                      <div class="card-footer">
-
+                                         <div class="card-footer">
                                              {% if files %}
-                                                <a href="#" class="btn btn-outline-accent-red btn-block-xs" name="delete_files"
-                                                   id="delete_files" style="margin-left: 2px; float: left"><span><i class="fas fa-trash-alt"></i> Delete Selected</span></a>
+                                            <a href="#" class="btn btn-outline-accent-red btn-block-xs" name="delete_files"
+                                               id="delete_files" style="margin-left: 2px; float: left"><span><i class="fas fa-trash-alt"></i> Delete Selected</span></a>
                                             {% endif %}
-
-
                                             <button style="float: left; margin-left: 2px" class="btn btn-outline-warning btn-block-xs" onclick="updateDiv()"><span><i class="fas fa-sync"></i> Refrach</span></button>
-
-                                            <button type="submit" style="float: right" class="btn btn-info btn-block-xs">
-                                                    <span> <i class="fas fa-save"></i> save</span>
-                                            </button>
+                                            <button type="submit" style="float: right" class="btn btn-info btn-block-xs"><span> <i class="fas fa-save"></i> save</span></button>
                                       </div>
+                                    </form>
+
+
                             </div>
                         </div>
 
-
-                           <div class="posts-cards mb-lg-32pt">
-                               <h2>Comments</h2>
-                                <div class="card card-body">
-                                    <div class="d-flex">
-                                        <a href="" class="avatar avatar-32pt avatar-online mr-12pt">
-                                            <img src="/static/huma/assets/images/people/256/256_rsz_nicolas-horn-689011-unsplash.jpg" alt="people" class="avatar-img rounded-circle">
-                                        </a>
-                                        <div class="flex">
-                                            <p class="d-flex align-items-center mb-2">
-                                                <a href="" class="text-body mr-2"><strong>Jenell D. Matney</strong></a>
-                                                <small class="text-muted">2 min ago</small>
-                                            </p>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores beatae quisquam iste maiores libero, corrupti totam saepe itaque quidem perspiciatis?</p>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos culpa commodi consequuntur! Optio labore corporis quo a quia, incidunt unde soluta velit ad, eius exercitationem sequi ab laborum! Nostrum voluptate earum sit aperiam quaerat unde, vel excepturi quisquam nihil reprehenderit in minus laudantium eligendi odio iusto nemo, aspernatur, optio soluta!</p>
-                                            <div class="d-flex align-items-center">
-                                                <a href="" class="text-50 d-flex align-items-center text-decoration-0"><i class="material-icons mr-1" style="font-size: inherit;">favorite_border</i> 30</a>
-                                                <a href="" class="text-50 d-flex align-items-center text-decoration-0 ml-3"><i class="material-icons mr-1" style="font-size: inherit;">thumb_up</i> 130</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="d-flex mb-4">
-                                <div class="flex">
-                                    <div class="form-group">
-                                        <label for="comment" class="form-label">Your reply</label>
-                                        <textarea class="form-control" name="comment" id="comment" rows="3" placeholder="Type here to reply  ..."></textarea>
-                                    </div>
-                                    <button class="btn btn-accent">Post comment</button>
-                                </div>
-                            </div>
+                    {% render_comments issue request %}
 
                     </div>
                 </div>

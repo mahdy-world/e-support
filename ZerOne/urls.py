@@ -25,6 +25,7 @@ urlpatterns = [
     path('core/', include('Core.urls')),
     path('onsite/', include('ONSite.urls')),
     path('api/', include('Tom.api.urls')),
+    path('comment/', include('comment.urls')),
     path('',include('Auth.urls')),
     path('__debug__/', include('debug_toolbar.urls')),
     url(r'^select2/', include('django_select2.urls')),

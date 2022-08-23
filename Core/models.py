@@ -1,6 +1,8 @@
 from AdminMedule.models import *
 from django.db import models
 from Auth.models import User
+from django.contrib.contenttypes.fields import GenericRelation
+from comment.models import Comment
 
 
 # Create your models here.
@@ -28,12 +30,12 @@ class Issue(models.Model):
     screen = models.CharField(max_length=100, verbose_name="Screen", null=True, blank=True)
     field = models.CharField(max_length=100, verbose_name="Field", null=True, blank=True)
     description = models.TextField(verbose_name="Description")
-    last_comment = models.TextField(verbose_name="Last Comment", null=True, blank=True)
+    # last_comment = models.TextField(verbose_name="Last Comment", null=True, blank=True)
     title = models.CharField(max_length=200, verbose_name="Title")
     jira_id = models.CharField(max_length=150, verbose_name="Jira Id", null=True, blank=True)
     creator = models.CharField(max_length=100, verbose_name= "Creator", null=True, blank=True)
-    create= models.DateField(verbose_name="Create Date", null=True, blank=True)
-    last_update = models.DateField(verbose_name="Last Update", null=True, blank=True)
+    create= models.DateTimeField(verbose_name="Create Date", null=True, blank=True)
+    last_update = models.DateTimeField(verbose_name="Last Update", null=True, blank=True)
     folder_id = models.IntegerField(verbose_name = "Folder Id", null=True, blank=True)
 
     affects_version = models.FloatField(verbose_name="Affects Version", null=True, blank=True)
@@ -41,6 +43,12 @@ class Issue(models.Model):
     supscription_type = models.CharField(max_length=50, null=True, blank=True, verbose_name="Supscription Type")
     train = models.CharField(max_length=50,null=True, blank=True, verbose_name="Train")
     station = models.ForeignKey(Station, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Station")
+    comments = GenericRelation(Comment)
+
+    from django.urls import reverse
+
+    def get_absolute_url(self):
+        return reverse('ONSite:IssueUpdate', kwargs={'pk': self.id})
     
 
 GANDER = (

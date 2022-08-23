@@ -57,7 +57,15 @@
               rel="stylesheet">
 
         <link href="/static/assets/select2/dist/css/select2.min.css" rel="stylesheet" />
+    <style>
+        .modalPersonResp{
+        height:80%;
+        width: 50%;
 
+        overflow: scroll;
+    }
+
+    </style>
     </head>
 
     <body class="layout-app layout-sticky-subnav ">
@@ -75,53 +83,7 @@
 
                 <!-- // END Header -->
 
-                <div class="border-bottom-2 py-32pt position-relative z-1">
-                    <div class="container-fluid page__container d-flex flex-column flex-md-row align-items-center text-center text-sm-left">
-                        <div class="flex d-flex flex-column flex-sm-row align-items-center mb-24pt mb-md-0">
 
-                            <div class="mb-24pt mb-sm-0 mr-sm-24pt">
-                                <h2 class="mb-0">On Site</h2>
-
-                                <ol class="breadcrumb p-0 m-0">
-                                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-
-                                    <li class="breadcrumb-item active">
-
-                                        Dashboard
-                                    </li>
-
-
-                                </ol>
-
-                            </div>
-
-                        </div>
-
-                        <!-- open and close buttons -->
-                        <div class="row"
-                             role="tablist">
-                            <div class="col-auto d-flex flex-column">
-                                <h6 class="m-0">{{ open_issue_count }}</h6>
-                                <p class="text-50 mb-0 d-flex align-items-center">
-                                    <a onclick="issue_open()" style="cursor: pointer"> <span> Open <i class="fas fa-lock-open" style="color: #c24747"></i></span></a>
-
-                                </p>
-                            </div>
-                            <div class="col-auto border-left">
-                                <h6 class="m-0">{{ close_issue_count }}</h6>
-                                <p class="text-50 mb-0 d-flex align-items-center">
-                                    <a onclick="issue_close()" style="cursor: pointer">  <span >Closed <i class="fas fa-lock" style="color: #198754"></i></span></a>
-
-                                </p>
-                            </div>
-                            <div class="col-auto border-left">
-                                <a href="{% url 'ONSite:CreateIssue' %}" class="btn btn-accent"
-                                   data-toggle="modal" data-target="#sub_modal"> <span><i class="fa fa-plus"></i> Create Issue</span></a>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
 
              <!-- end open and close buttons -->
 
@@ -142,26 +104,25 @@
 
                     {% endif %}
 
-                    <div class="page-separator">
-                        <div class="page-separator__text">My Issues</div>
-                    </div>
 
-                    <div class="card mb-lg-32pt">
-
-                        <div class="table-responsive"
-                             data-toggle="lists"
-                             data-lists-sort-by="js-lists-values-employee-name"
-                             data-lists-values='["js-lists-values-employee-name", "js-lists-values-employer-name", "js-lists-values-projects", "js-lists-values-activity", "js-lists-values-earnings"]'>
+                    <div class=" mb-lg-18pt">
+                        <div class="container-fluid page__container page__container page-section">
+                             <div class="page-separator">
+                        <div class="page-separator__text">
+                                <ol class="breadcrumb p-0 m-0">
+                                    <li class="breadcrumb-item"><a href="{% url 'Core:Index' %}">Home</a></li>
+                                    <li class="breadcrumb-item active">
+                                        My Issues
+                                    </li>
+                                </ol>
                         </div>
-
-
-                <div class="container-fluid page__container page__container page-section">
-                    <div class="posts-cards mb-24pt" id="issue_list">
-                        {% include 'on_site_issue_div.html' %}
                     </div>
+                            <div class=" mb-24pt" id="issue_list">
+                                {% include 'on_site_issue_div.html' %}
+                            </div>
 
-                </div>
                         </div>
+                    </div>
 
                     </div>
                 </div>
@@ -171,9 +132,9 @@
             {% include "core/sidebar.html" %}
 
              <!-- sub modal -->
-            <div class="modal fade" data-backdrop="static" id="sub_modal">
-                <div class="modal-dialog modal-xl" id="sub_modal2">
-                    <div class="modal-content" id="sub_body">
+            <div class="modal fade "   data-backdrop="static" id="sub_modal">
+                <div class="modal-dialog modal-lg" id="sub_modal2"  >
+                    <div class="modal-content " id="sub_body" >
                             <span class="float-left">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </span>

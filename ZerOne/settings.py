@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
+    'comment',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -50,8 +51,11 @@ INSTALLED_APPS = [
     'Tom',
     'django_user_agents',
     'rest_framework',
+
     
 ]
+
+LOGIN_URL = '/auth/login/'
 
 # Add this to Abstruct user 
 AUTH_USER_MODEL = 'Auth.User'

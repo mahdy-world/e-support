@@ -1,19 +1,18 @@
 {% for x in issue %}
-
 <div class="card posts-card" >
-
      <div class="posts-card__content d-flex align-items-center flex-wrap" >
         <div class="mr-4 issue-card">
             <h3><a href="{% url 'ONSite:IssueDetails' x.id %}">#{{ x.id }}</a></h3>
         </div>
             <div class="posts-card__title flex d-flex flex-column">
-                <h5 class="card-title text-primary m-0"><a href="" class="headings-color">{% if x.title %} {{ x.title }} {% endif %}</a></h5>
+                <h5 class="card-title text-primary m-0">
+                    <a href="{% url 'ONSite:IssueDetails' x.id %}" class="headings-color">{% if x.title %} {{ x.title }} {% endif %}</a></h5>
                 <small class="text-50">{% if x.create %} {{ x.create }} {% endif %}</small>
             </div>
-                <div class="d-flex align-items-center flex-row flex-sm-row posts-card__meta">
-                     <div class=" text-50 text-uppercase  d-flex align-items-center">
+                <div class="d-flex align-items-center flex-row flex-md-row posts-card__meta">
+                     <div class="d-flex align-items-center">
 
-                        <h4 class="
+                        <p class="
                         {% if x.status.id == 1 %}
                         text-danger
                         {% elif x.status.id == 2 %}
@@ -24,16 +23,15 @@
                           "
                         >
                         {{ x.status }}
-                        </h4>
+                        </p>
                     </div>
-                    <div class="ml-3 text-50 d-flex align-items-center">
-                        <h4>{{ x.channel }}</h4>
+                    <div class="ml-2 0 d-flex align-items-center">
+                        <h5>{{ x.channel }}</h5>
                     </div>
-                    <div class="ml-3 text-50 d-flex align-items-center">
-                        <h4>{{ x.module }}</h4>
+                    <div class="ml-2  d-flex align-items-center">
+                        <h5>{{ x.module }}</h5>
                     </div>
                 </div>
-
                     <div class="dropdown ml-auto">
                          <a href="#" data-toggle="dropdown" data-caret="false" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                         <div class="dropdown-menu dropdown-menu-right" style="">
@@ -43,6 +41,6 @@
                         </div>
                     </div>
     </div>
-
 </div>
+
 {% endfor %}

@@ -19,78 +19,58 @@
                                     type="submit"><i class="material-icons">search</i></button>
                         </form>
 
-                        <div class="sidebar-heading">Main</div>
-                        <ul class="sidebar-menu">
-                            <li class="sidebar-menu-item active">
-                                <a class="sidebar-menu-button"
-                                    href="{% url 'Core:Index' %}" style="cursor: pointer">
-                                    <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left"><i class="fas fa-list"></i></span>
-                                    <span class="sidebar-menu-text">My Issues</span>
-                                </a>
-                            </li>
-
-                            <li class="sidebar-menu-item active">
-                                <a class="sidebar-menu-button"
-                                   href="{% url 'ONSite:CreateIssue' %}" data-toggle="modal" data-target="#sub_modal">
-                                    <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left"><i class="fas fa-plus-square"></i></span>
-                                    <span class="sidebar-menu-text">Create Issue</span>
-                                </a>
-                            </li>
-
-                        </ul>
-
-                        <div class="sidebar-heading">Applications</div>
+                        <div class="sidebar-heading">Issue</div>
                         <ul class="sidebar-menu">
                             <li class="sidebar-menu-item">
                                 <a class="sidebar-menu-button js-sidebar-collapse"
                                    data-toggle="collapse"
                                    href="#enterprise_menu">
-                                    <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left"><i class="fas fa-desktop"></i></span>
-                                    Devices
+                                    <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left"><i class="fas fa-list-alt"></i></span>
+                                    My Issue
                                     <span class="ml-auto sidebar-menu-toggle-icon"></span>
                                 </a>
                                 <ul class="sidebar-submenu collapse sm-indent"
                                     id="enterprise_menu">
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
-                                           href="erp-dashboard.html">
+                                           href="{% url 'ONSite:CreateIssue' %}" data-toggle="modal" data-target="#sub_modal">
                                             <span class="sidebar-menu-text">Add New</span>
                                         </a>
                                     </li>
                                     <li class="sidebar-menu-item">
                                         <a class="sidebar-menu-button"
-                                           href="crm-dashboard.html">
+                                           href="{% url 'Core:Index' %}">
                                             <span class="sidebar-menu-text">List</span>
                                         </a>
                                     </li>
                                 </ul>
                             </li>
-                            <li class="sidebar-menu-item">
-                                <a class="sidebar-menu-button"
-                                   data-toggle="collapse"
-                                   href="#productivity_menu">
-                                    <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left"><i class="fas fa-train"></i></span>
-                                    Stations
-                                    <span class="ml-auto sidebar-menu-toggle-icon"></span>
-                                </a>
-                                <ul class="sidebar-submenu collapse sm-indent"
-                                    id="productivity_menu">
-                                    <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button"
-                                           href="projects.html">
-                                            <span class="sidebar-menu-text">Add New</span>
-                                        </a>
-                                    </li>
-                                    <li class="sidebar-menu-item">
-                                        <a class="sidebar-menu-button"
-                                           href="tasks-board.html">
-                                            <span class="sidebar-menu-text">List</span>
-                                        </a>
-                                    </li>
-
-
-                                </ul>
-                            </li>
+{#                            <li class="sidebar-menu-item">#}
+{#                                <a class="sidebar-menu-button"#}
+{#                                   data-toggle="collapse"#}
+{#                                   href="#productivity_menu">#}
+{#                                    <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left"><i class="fas fa-train"></i></span>#}
+{#                                    Stations#}
+{#                                    <span class="ml-auto sidebar-menu-toggle-icon"></span>#}
+{#                                </a>#}
+{#                                <ul class="sidebar-submenu collapse sm-indent"#}
+{#                                    id="productivity_menu">#}
+{#                                    <li class="sidebar-menu-item">#}
+{#                                        <a class="sidebar-menu-button"#}
+{#                                           href="projects.html">#}
+{#                                            <span class="sidebar-menu-text">Add New</span>#}
+{#                                        </a>#}
+{#                                    </li>#}
+{#                                    <li class="sidebar-menu-item">#}
+{#                                        <a class="sidebar-menu-button"#}
+{#                                           href="tasks-board.html">#}
+{#                                            <span class="sidebar-menu-text">List</span>#}
+{#                                        </a>#}
+{#                                    </li>#}
+{##}
+{##}
+{#                                </ul>#}
+{#                            </li>#}
                         </ul>
 
                     </div>

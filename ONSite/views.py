@@ -12,7 +12,7 @@ from django.http import HttpResponseRedirect, JsonResponse, response
 from.models import Issue
 from AdminMedule.models import Status
 
-
+# My Issue Method
 class MyIssue(LoginRequiredMixin, ListView):
     login_url = '/auth/login'
     model = Issue
@@ -28,6 +28,8 @@ class MyIssue(LoginRequiredMixin, ListView):
         context['issue'] = self.queryset
         return context
 
+
+# Create Issue Method
 class CreateIssue(LoginRequiredMixin, FormView):
     login_url = '/auth/login'
     model = Issue
@@ -37,7 +39,7 @@ class CreateIssue(LoginRequiredMixin, FormView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Create Issue'
+        context['title'] = 'New Issue'
         context['message'] = 'add'
         context['action_url'] = reverse_lazy('ONSite:CreateIssue')
         return context
@@ -64,7 +66,7 @@ class CreateIssue(LoginRequiredMixin, FormView):
             return self.form_invalid(form)
 
 
-
+# Update Issue Method
 class IssueUpdate(LoginRequiredMixin, UpdateView):
     login_url = '/auth/login'
     model = Issue
@@ -79,6 +81,15 @@ class IssueUpdate(LoginRequiredMixin, UpdateView):
         context['action_url'] = reverse_lazy('ONSite:IssueUpdate', kwargs={'pk': self.object.id})
         return context
 
+    # update last_update filed if any changed
+    def form_valid(self, form):
+        form.save()
+        obj = form.save(commit=False)
+        myform = Issue.objects.get(id=obj.id)
+        myform.last_update = datetime.datetime.now()
+        myform.save()
+        return redirect('ONSite:IssueDetails' , pk=myform.id)
+
     def get_success_url(self):
         messages.success(self.request, "Edit Done Succesfuly", extra_tags="success")
 
@@ -88,7 +99,7 @@ class IssueUpdate(LoginRequiredMixin, UpdateView):
             return self.success_url
 
 
-
+# Update File Method
 class FilesUpdate(LoginRequiredMixin, DetailView):
     login_url = '/auth/login/'
     model = Issue
@@ -96,12 +107,18 @@ class FilesUpdate(LoginRequiredMixin, DetailView):
     template_name = 'files.html'
     success_url = reverse_lazy('Core:Index')
 
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['files'] = Files.objects.filter(issue=self.object.id)
         context['action_url'] = reverse_lazy('ONSite:FilesUpdate', kwargs={'pk': self.object.id})
         return context
+
+    def get_success_url(self):
+        messages.success(self.request, "Assigned Succesfuly ", extra_tags="success")
+        if self.request.POST.get('url'):
+            return self.request.POST.get('url')
+        else:
+            return self.success_url
 
     def post(self, request, *args, **kwargs):
         file = request.FILES.getlist('file')
@@ -117,10 +134,10 @@ class FilesUpdate(LoginRequiredMixin, DetailView):
                 obj.name = self.kwargs['pk']
                 obj.files = selected_files
                 obj.save()
-        return HttpResponseRedirect(reverse_lazy('Core:Index'))
+        return HttpResponseRedirect(reverse_lazy('ONSite:IssueDetails', kwargs={'pk': self.kwargs['pk']}))
 
 
-
+# Update Dive Method
 class FilesUpdateDive(LoginRequiredMixin, DetailView):
     login_url = '/auth/login/'
     model = Issue
@@ -134,6 +151,14 @@ class FilesUpdateDive(LoginRequiredMixin, DetailView):
         context['files'] = Files.objects.filter(issue=self.object.id)
         context['action_url'] = reverse_lazy('ONSite:FilesUpdate', kwargs={'pk': self.object.id})
         return context
+
+
+    def get_success_url(self):
+        messages.success(self.request, "Assigned Succesfuly ", extra_tags="success")
+        if self.request.POST.get('url'):
+            return self.request.POST.get('url')
+        else:
+            return self.success_url
 
     def post(self, request, *args, **kwargs):
         file = request.FILES.getlist('file')
@@ -150,8 +175,7 @@ class FilesUpdateDive(LoginRequiredMixin, DetailView):
                 obj.files = selected_files
                 obj.save()
         if obj:
-            return HttpResponseRedirect(reverse_lazy('Core:Index'))
-
+            return HttpResponseRedirect(reverse_lazy('ONSite:IssueDetails', kwargs={'pk': self.kwargs['pk']}))
 
 
 # delete multiple items
@@ -168,7 +192,7 @@ def DeleteFiles(request):
         return JsonResponse(response)
 
 
-# assign issue
+# Assign Issue Method
 class AssignIssue(LoginRequiredMixin, UpdateView):
     login_url = '/auth/login/'
     model = Issue
@@ -192,6 +216,7 @@ class AssignIssue(LoginRequiredMixin, UpdateView):
             return self.success_url
 
 
+# Issue Details Method
 class IssueDetails(LoginRequiredMixin, DetailView):
     login_url = '/auth/login/'
     model = Issue
@@ -200,7 +225,7 @@ class IssueDetails(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['files'] = Files.objects.filter(issue=self.object)
-        print(Files.objects.filter(issue__files=self.object.id))
+        context['action_url'] = reverse_lazy('ONSite:FilesUpdate', kwargs={'pk': self.object.id})
         return context
 
 
