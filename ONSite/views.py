@@ -29,20 +29,59 @@ class MyIssue(LoginRequiredMixin, ListView):
         return context
 
 
-# Create Issue Method
-class CreateIssue(LoginRequiredMixin, FormView):
+# Create Hot Issue Method
+class CreateHotIssue(LoginRequiredMixin, FormView):
     login_url = '/auth/login'
     model = Issue
     form_class = CreateIssueForm
-    template_name = 'forms/on_site_issue.html'
+    template_name = 'forms/hot_issue.html'
     success_url = reverse_lazy('Core:Index')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'New Issue'
         context['message'] = 'add'
-        context['action_url'] = reverse_lazy('ONSite:CreateIssue')
+        context['action_url'] = reverse_lazy('ONSite:CreateHotIssue')
 
+        return context
+
+    # create with save multiple file
+    def post(self, request, *args, **kwargs):
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        print(form)
+        issue = form.save(commit=False)
+        file = request.FILES.getlist('file')
+
+        if form.is_valid():
+            issue = form.save(commit=False)
+            issue.reporter = request.user
+            issue.status = Status(1)
+            issue.create_date = datetime.date.today()
+            issue.save()
+            if file != None:
+                for f in file:
+                    selected_files = f
+                    Files.objects.create(files=selected_files, issue=issue, name=issue.title)
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+
+
+# Create Full Issue Method
+class CreateFullIssue(LoginRequiredMixin, FormView):
+    login_url = '/auth/login'
+    model = Issue
+    form_class = CreateIssueForm
+    template_name = 'forms/full_issue.html'
+    success_url = reverse_lazy('Core:Index')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'New Issue'
+        context['message'] = 'add'
+        context['action_url'] = reverse_lazy('ONSite:CreateFullIssue')
         return context
 
     # create with save multiple file
@@ -73,7 +112,7 @@ class IssueUpdate(LoginRequiredMixin, UpdateView):
     login_url = '/auth/login'
     model = Issue
     form_class = CreateIssueForm
-    template_name = 'forms/on_site_issue.html'
+    template_name = 'forms/hot_issue.html'
     success_url = reverse_lazy('Core:Index')
 
     def get_context_data(self, **kwargs):

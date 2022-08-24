@@ -1,0 +1,146 @@
+
+{% block main %}
+    {% load bootstrap4 %}
+    {% load  crispy_forms_tags %}
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="modal-title">
+                        {{ title }}
+                        <span class="card-tools" style="float: right">
+                            <button type="button" class="btn btn-tool" data-dismiss="modal">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+                <div class="card-body" style="background-color: #f5f5f5">
+                    <div class="row">
+                        <div class="col-12">
+                           <div id="accordion">
+
+                            {% comment %}Hot issue card{% endcomment %}
+                              <div class="card">
+                                <div class="card-header" id="headingOne">
+                                  <h5 class="mb-0">
+                                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                     <span><i class="fas fa-fire"></i> Hot Issue</span>
+                                    </button>
+                                  </h5>
+                                </div>
+                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                <form method="post" action="{{ action_url }}" enctype="multipart/form-data" style="height: 80%">
+                                  <div class="card-body">
+                                      {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-lg-6 col-sm-12">
+                                            <div class="form-group" id="title">
+                                                {{form.title|as_crispy_field}}
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-sm-12">
+                                            <div class="form-group">
+                                                {{form.priority|as_crispy_field}}
+                                             </div>
+                                        </div>
+
+                                         <div class="col-lg-6 col-sm-12">
+                                            <div class="form-group">
+                                                {{form.channel|as_crispy_field}}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6 col-sm-12">
+                                            <div class="form-group">
+                                                {{form.module|as_crispy_field}}
+                                             </div>
+                                        </div>
+
+                                         <div class="col-lg-6 col-sm-12">
+                                            <div class="form-group">
+                                                {{form.device_serial|as_crispy_field}}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6 col-sm-12">
+                                            <div class="form-group">
+                                                {{form.affects_version|as_crispy_field}}
+                                            </div>
+                                        </div>
+
+                                         <div class="col-12 justify-content-center">
+                                            <div class="form-group">
+                                                {{form.description|as_crispy_field}}
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                        <div class="row d-flex justify-content-center">
+                                             <div class="form-group ">
+                                                    <input type="file" class=" shadow p-3 " id="file" multiple name="file" >
+                                             </div>
+                                        </div>
+                                  </div>
+                                     <div class="card-footer">
+                                          <button type="submit" class="btn btn-info btn-block-xs">
+                                                    {% if message == 'edit' %}
+                                                        <span> Update </span>
+                                                    {% else %}
+                                                        <span> Save </span>
+                                                    {% endif %}
+                                          </button>
+                                    </div>
+
+                                    </form>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <input name="url" type="hidden" class="url_input">
+                    <input name="instance" type="hidden"  value="{{ request.user.instance.id }}">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+         <button type="button" class="btn btn-outline btn-block-xs float-right" data-dismiss="modal">
+           <span> <i class="fas fa-times"></i> Cancel </span>
+        </button>
+   </div>
+
+{% endblock %}
+
+
+{% block js %}
+
+    <script>
+        function get_url() {
+            var url_input = $('.url_input');
+            url_input.each(function (i) {
+                $(this).val(window.location.href);
+            });
+            return url_input;
+        }
+
+        get_url();
+
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#issue_type').select2({width: '100%', placeholder:'Search...'});
+            $('#device_serial').select2({width: '100%', placeholder:'Search...'});
+            $('#module').select2({width: '100%', placeholder:'Search...'});
+            $('#channel').select2({width: '100%', placeholder:'Search...'});
+            $('#priority').select2({width: '100%', placeholder:'Search...'});
+        });
+    </script>
+
+{% endblock %}

@@ -18,7 +18,7 @@ class CreateIssueForm(forms.ModelForm):
             'description' : forms.Textarea(attrs={'class':'form-control border border-primary ', 'id':'description', 'name':'description'}),
             'affects_version' : forms.TextInput(attrs={'class':'form-control border border-primary ', 'id':'affects_version', 'name':'affects_version'}),
             'train' : forms.Select(attrs={'class':'form-control border border-primary ', 'id':'train', 'name':'train'}),
-            'station' : forms.Select(attrs={'class':'form-control border border-primary ', 'id':'train', 'name':'Station'}),
+            'station' : forms.Select(attrs={'class':'form-control border border-primary ', 'id':'train', 'name':'station'}),
             'subscription_type':forms.TextInput(attrs={'class':'form-control border border-primary ', 'id':'subscription_type', 'name':'subscription_type'}),
             'subscription_number':forms.NumberInput(attrs={'class':'form-control border border-primary ', 'id':'subscription_number', 'name':'subscription_number'}),
             'subscription_expiry_date':forms.DateInput(attrs={'class':'form-control border border-primary ', 'type':'date', 'id':'subscription_expiry_date', 'name':'subscription_expiry_date'}),

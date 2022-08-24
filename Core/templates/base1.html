@@ -125,6 +125,18 @@
                 };
 
         </script>
+
+        <script>
+            $(document).ready(function() {
+                $('#issue_type').select2({width: '100%', placeholder:'Search...'});
+                $('#device_serial').select2({width: '100%', placeholder:'Search...'});
+                $('#module').select2({width: '100%', placeholder:'Search...'});
+                $('#channel').select2({width: '100%', placeholder:'Search...'});
+                $('#priority').select2({width: '100%', placeholder:'Search...'});
+                $('#station').select2({width: '100%', placeholder:'Search...'});
+            });
+        </script>
+
         {% block script %}
 
         {% endblock script %}

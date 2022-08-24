@@ -67,6 +67,7 @@ class Issue(models.Model):
     title = models.CharField(max_length=200, verbose_name="Title")
     jira_id = models.CharField(max_length=20, verbose_name="Jira Id", null=True, blank=True)
     follwer = models.ForeignKey(User, related_name="issue_follwer", on_delete=models.CASCADE, verbose_name= "Follwer", null=True, blank=True)
+
     create_date= models.DateTimeField(verbose_name="Create Date", null=True, blank=True)
     update_date = models.DateTimeField(verbose_name="Last Update", null=True, blank=True)
 

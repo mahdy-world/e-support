@@ -31,20 +31,26 @@
  </div>
 
  <div class="nav-item ml-16pt">
-            <a class="btn btn-outline-info "  href="{% url 'ONSite:CreateIssue' %}" data-toggle="modal" data-target="#sub_modal">
-               <span><i class="fas fa-filter"></i></span>
-            </a>
-    </div>
+        <a class="btn btn-outline-info "  href="{% url 'ONSite:CreateHotIssue' %}" data-toggle="modal" data-target="#sub_modal">
+           <span><i class="fas fa-filter"></i></span>
+        </a>
+</div>
+
+ <div class="nav-item ml-16pt">
+        <a class="btn btn-outline-info "  href="{% url 'ONSite:CreateFullIssue' %}" data-toggle="modal" data-target="#sub_modal">
+           <span><i class="fas fa-star"></i></span>
+        </a>
+</div>
+
 
 <div class="flex">
      <div class="nav-item ml-16pt">
-            <a class="btn btn-outline-info "  href="{% url 'ONSite:CreateIssue' %}" data-toggle="modal" data-target="#sub_modal">
-               <span><i class="fas fa-plus-square"></i></span>
+            <a class="btn btn-outline-info "  href="{% url 'ONSite:CreateHotIssue' %}" data-toggle="modal" data-target="#sub_modal">
+               <span><i class="fas fa-fire"></i></span>
             </a>
     </div>
 
 </div>
-
 
     <div class="nav navbar-nav flex-nowrap d-flex ml-0 mr-16pt">
         <!-- Notifications dropdown -->
