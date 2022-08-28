@@ -56,14 +56,22 @@
               href="/static/huma/assets/vendor/jqvmap/jqvmap.min.css"
               rel="stylesheet">
 
-        <link href="/static/assets/select2/dist/css/select2.min.css" rel="stylesheet" />
-    <style>
+{#        <link href="/static/assets/select2/dist/css/select2.min.css" rel="stylesheet" />#}
+
+        <!--Huma select2  -->
+        <link type="text/css"
+              href="/static/huma/assets/vendor/select2/select2.min.css"
+              rel="stylesheet">
+        <link type="text/css"
+              href="/static/huma/assets/css/select2.css"
+              rel="stylesheet">
+        <style>
         .modalPersonResp{
         height:80%;
         width: 50%;
 
         overflow: scroll;
-    }
+     }
 
     </style>
     </head>
@@ -92,18 +100,18 @@
                     <div class="page-section">
                       <!-- message div -->
                     {% if messages %}
-                                {% for message in messages %}
-                                <div class="alert alert-{{ message.tags }} alert-dismissible fade show text-center" role="alert">
-                                    <i class="mdi mdi-check-all mr-2"></i>
-                                   <h2> {{ message|safe }} </h2>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">×</span>
-                                    </button>
-                                </div>
-                                {% endfor %}
-
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show text-center" role="alert">
+                                <i class="mdi mdi-check-all mr-2"></i>
+                               <h2> {{ message|safe }} </h2>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                        {% endfor %}
                     {% endif %}
 
+                    {% include 'core/filter.html' %}
 
                     <div class=" mb-lg-18pt">
                         <div class="container-fluid page__container page__container page-section">
@@ -117,9 +125,10 @@
                                 </ol>
                         </div>
                     </div>
-                            <div class=" mb-24pt" id="issue_list">
-                                {% include 'on_site_issue_div.html' %}
-                            </div>
+                            {% block issue_div %}
+
+                            {% endblock %}
+
 
                         </div>
                     </div>
@@ -129,7 +138,7 @@
             </div>
             <!-- // END drawer-layout__content -->
 
-            {% include "core/sidebar.html" %}
+
 
              <!-- sub modal -->
             <div class="modal fade " data-backdrop="static" id="sub_modal">
@@ -145,33 +154,6 @@
 
         </div>
 
-        <script>
-
-        function issue_open(){
-           $("#issue_list")
-                .html("&nbsp;")
-                .load(
-                  "{% url 'Core:IssueList_div' 1 %}"
-                );
-        };
-
-        function issue_close(){
-            $("#issue_list")
-                .html("&nbsp;")
-                .load(
-                  "{% url 'Core:IssueList_div' 2 %}"
-                );
-        };
-
-        function issue_index(){
-                    $("#issue_list")
-                        .html("&nbsp;")
-                        .load(
-                          "{% url 'Core:Index_div' %}"
-                        );
-                };
-
-        </script>
 
         <script>
             $(document).ready(function() {
@@ -180,13 +162,16 @@
                 $('#module').select2({width: '100%', placeholder:'Search...'});
                 $('#channel').select2({width: '100%', placeholder:'Search...'});
                 $('#priority').select2({width: '100%', placeholder:'Search...'});
+                $('#title').select2({width: '100%', placeholder:'Search...'});
+                $("#select03").select2({
+                maximumSelectionLength: 2
+                });
             });
          </script>
 
         {% block script %}
 
         {% endblock script %}
-
 
 
         <!-- jQuery -->
@@ -227,7 +212,9 @@
         <!-- App Settings (safe to remove) -->
         <script src="/static/huma/assets/js/app-settings.js"></script>
 
-        <script src="/static/assets/select2/dist/js/select2.min.js"></script>
+{#        <script src="/static/assets/select2/dist/js/select2.min.js"></script>#}
+        <script src="/static/huma/assets/vendor/select2/select2.min.js"></script>
+        <script src="/static/huma/assets/js/select2.js"></script>
     </body>
 
 </html>

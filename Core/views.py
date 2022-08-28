@@ -7,85 +7,23 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Issue, Status
 from django_user_agents.utils import get_user_agent
+from django.views.generic import ListView, UpdateView, CreateView, DetailView
 
 # Create your views here.
 
 
-@login_required(login_url='Auth:Login')
-def Index(request):
-    # open and clsoe user issue
-    open_issue = Issue.objects.filter(reporter=request.user, status=Status(1))
-    close_issue = Issue.objects.filter(reporter=request.user, status=Status(2))
-    import subprocess
-    test = subprocess.check_output('wmic bios get serialnumber').decode("utf-8")
-    print(test)
+class Index(LoginRequiredMixin, ListView):
+    login_url = '/auth/login'
+    model = Issue
+    paginate = 50
+    template_name = 'Core/index.html'
 
-    # all user issue
-    issue = Issue.objects.filter(reporter=request.user).order_by('-id')
-    # return count for open issue and close issue
-    open_issue_count = open_issue.count()
-    close_issue_count = close_issue.count()
-
-    context = {
-        'open_issue_count': open_issue_count,
-        'close_issue_count': close_issue_count,
-        'issue': issue
-    }
-
-    return render(request, 'core/index.html', context)
-
-
-
-def index_div(request):
-    open_issue = Issue.objects.filter(reporter=request.user, status=Status(1))
-    close_issue = Issue.objects.filter(reporter=request.user, status=Status(2))
-
-    issue = Issue.objects.filter(reporter=request.user).order_by('-id')
-
-    open_issue_count = open_issue.count()
-    close_issue_count = close_issue.count()
-    context = {
-        'open_issue_count': open_issue_count,
-        'close_issue_count': close_issue_count,
-        'issue': issue
-    }
-    return render(request, 'on_site_issue_div.html', context)
-
-
-def IssueList(request, status):
-    open_issue = Issue.objects.filter(reporter=request.user, status=Status(1))
-    close_issue = Issue.objects.filter(reporter=request.user, status=Status(2))
-
-    # open and close counter
-    open_issue_count = open_issue.count()
-    close_issue_count = close_issue.count()
-    # issue for requested user and filtering by status nubmer
-    issue = Issue.objects.filter(reporter=request.user, status=Status(status)).order_by('-id')
-    context = {
-        'issue': issue,
-        'open_issue_count': open_issue_count,
-        'close_issue_count': close_issue_count
-    }
-    return render(request, 'core/index.html', context)
-
-
-
-def IssueList_div(request, status):
-    open_issue = Issue.objects.filter(reporter=request.user, status=Status(1))
-    close_issue = Issue.objects.filter(reporter=request.user, status=Status(2))
-
-    # open and close counter
-    open_issue_count = open_issue.count()
-    close_issue_count = close_issue.count()
-    # issue for requested user and filtering by status nubmer
-    issue = Issue.objects.filter(reporter=request.user, status=Status(status)).order_by('-id')
-    context = {
-        'issue': issue,
-        'open_issue_count': open_issue_count,
-        'close_issue_count': close_issue_count
-    }
-    return render(request, 'on_site_issue_div.html', context)
-
-
-
-
+    def get_queryset(self):
+        queryset = self.model.objects.filter(reporter=self.request.user).order_by('-id')
+        if self.request.GET.get('issue_number'):
+            queryset= self.model.objects.filter(id=self.request.GET.get('issue_number')).order_by('-id')
+        if self.request.GET.get('title'):
+            queryset= self.model.objects.filter(title__icontains=self.request.GET.get('title')).order_by('-id')
+        if self.request.GET.get('date_from'):
+            queryset = self.model.objects.filter(create_date__gte=self.request.GET.get('date_from')).order_by('-id')
+        return queryset

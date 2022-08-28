@@ -6,48 +6,102 @@
                     <div class="page-section">
                       <!-- message div -->
                         {% if messages %}
-                                    {% for message in messages %}
-                                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show text-center" role="alert">
-                                        <i class="mdi mdi-check-all mr-2"></i>
-                                       <h2> {{ message|safe }} </h2>
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">×</span>
-                                        </button>
-                                    </div>
-                                    {% endfor %}
-
+                            {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show text-center" role="alert">
+                                <i class="mdi mdi-check-all mr-2"></i>
+                               <h5> {{ message|safe }} </h5>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            {% endfor %}
                         {% endif %}
 
-
-
                         <div class="card mb-lg-32pt">
+                            <div class="card-header bg-dark">
+                               <span class="font-size-20pt text-light">
+                                   <span class="badge badge-primary">#{{ object.id }}</span>
+                                   <span>{{ object.title }}</span>
+                               </span>
+                            </div>
+
                             <div class="container-fluid page__container page__container page-section">
                                 <div class="posts-cards">
-
-                                    {% comment %}Data Details Row {% endcomment %}
+                                {% comment %}Data Details Row {% endcomment %}
                                     <div class="row mt-4">
                                         <div class="col-md-4">
                                              <ul class="text-secondary" style="list-style: none; padding-left: 15px;">
-                                                <li><p>Status: <span class=" {{ object.status.color }}" style="font-weight: bold; margin-left: 5%">{{ object.status}}</span></p></li>
-                                                <li><p>Type: <i style="margin-left: 5%" class="{{ object.issue_type.icon}} {{ object.issue_type.color }}"></i> <span class="text-dark" style="font-weight: bold;">{{ object.issue_type }}</span></p></li>
-                                                <li><p>Channel: <span class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.channel }}</span></p></li>
-                                                <li><p>Module: <span class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.module }}</span></p></li>
-                                                <li><p>Device Serial: <span class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.device_serial }}</span></p></li>
+                                                <li>
+                                                    <p>
+                                                        Status: <span class=" {{ object.status.color }}" style="font-weight: bold; margin-left: 5%">{{ object.status}}</span>
+                                                    </p>
+                                                </li>
+
+                                                <li>
+                                                    <p>
+                                                        Type: <i style="margin-left: 5%" class="{{ object.issue_type.icon}} {{ object.issue_type.color }}"></i>
+                                                        <span class="text-dark" style="font-weight: bold;">{{ object.issue_type }}</span>
+                                                    </p>
+                                                </li>
+
+                                                <li>
+                                                    <p>
+                                                        Channel: <span class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.channel }}</span>
+                                                    </p>
+                                                </li>
+
+                                                <li>
+                                                    <p>
+                                                        Module: <span class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.module }}</span>
+                                                    </p>
+                                                </li>
+
+                                                <li>
+                                                    <p>
+                                                        Device Serial: <span class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.device_serial }}</span>
+                                                    </p>
+                                                </li>
+
+                                                 <li>
+                                                      <p>
+                                                          Subscription Type:  <span class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.subscription_type }}</span>
+                                                      </p>
+                                                 </li>
+
+                                                 <li>
+                                                     <p>
+                                                         Subscription Number:  <span class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.subscription_number }}</span>
+                                                     </p>
+                                                 </li>
+
+                                                 <li>
+                                                     <p>
+                                                         Subscription Expiry Date:  <span class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.subscription_expiry_date }}</span>
+                                                     </p>
+                                                 </li>
                                             </ul>
                                         </div>
-
                                         <div class="col-md-4">
                                               <ul class="text-secondary" style="list-style: none; padding-left: 15px;">
-                                                    <li><p>Affec's Version:  <span  class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.affects_version }}</span></p></li>
-                                                    <li><p>Fix's Vesrion:  <span class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.fix_version}}</span></p></li>
-                                                    <li><p>Station:  <span class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.station }}</span></p></li>
+                                                    <li><p>Affec's Version:  <span  class="text-dark" style="font-weight: bold; margin-left: 5%">{% if object.affects_version %} {{ object.affects_version }} {% else %} --- {% endif %}</span></p></li>
+                                                    <li><p>Fix's Vesrion:  <span class="text-dark" style="font-weight: bold; margin-left: 5%"> {% if object.fix_version %} {{ object.fix_version}} {% else %} --- {% endif %}</span></p></li>
+                                                    <li><p>Station:  <span class="text-dark" style="font-weight: bold; margin-left: 5%"> {% if object.station %} {{ object.station }} {% else %} --- {% endif %}</span></p></li>
+                                                    <li><p>Office:  <span class="text-dark" style="font-weight: bold; margin-left: 5%"> {% if object.affects_version %} {{ object.affects_version }} {% else %} --- {% endif %}</span></p></li>
+                                                    <li><p>Train Number:  <span class="text-dark" style="font-weight: bold; margin-left: 5%"> {% if object.train_number %} {{ object.train_number }} {% else %} --- {% endif %}</span></p></li>
+                                                    <li><p>Train From:  <span class="text-dark" style="font-weight: bold; margin-left: 5%"> {% if object.train_from %} {{ object.train_from }} {% else %} --- {% endif %}</span></p></li>
+                                                    <li><p>Train To:  <span class="text-dark" style="font-weight: bold; margin-left: 5%"> {% if object.train_to %} {{ object.train_to }} {% else %} --- {% endif %}</span></p></li>
+                                                    <li><p>M-Number:  <span class="text-dark" style="font-weight: bold; margin-left: 5%"> {% if object.trans_number %} {{ object.trans_number }} {% else %} --- {% endif %}</span></p></li>
                                               </ul>
                                         </div>
 
                                         <div class="col-md-4">
                                              <ul class="text-secondary" style="list-style: none; padding-left: 15px;">
-                                                <li><p>Created At:  <span class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.create }}</span></p></li>
-                                                <li><p>Updated At:  <span  class="text-dark" style="font-weight: bold; margin-left: 5%">{{ object.last_update }}</span></p></li>
+                                                <li><p>Created At:  <span class="text-dark" style="font-weight: bold; margin-left: 5%">{% if object.create_date %} {{ object.create_date|date:"D d M Y" }} {{ object.create_date|time:"H:i" }} {% else %} --- {% endif %} </span></p></li>
+                                                <li><p>Updated At:  <span  class="text-dark" style="font-weight: bold; margin-left: 5%">{% if object.update_date %} {{ object.update_date|date:"D d M Y" }} {{ object.update_date|time:"H:i" }} {% else %} --- {% endif %}</span></p></li>
+                                                <li><p>Reporter:  <span  class="text-dark" style="font-weight: bold; margin-left: 5%">{% if object.reporter %} {{ object.reporter }} {% else %} --- {% endif %}</span></p></li>
+                                                <li><p>Follwer:  <span  class="text-dark" style="font-weight: bold; margin-left: 5%">{% if object.follwer %} {{ object.follwer }} {% else %} --- {% endif %}</span></p></li>
+                                                <li><p>Teller:  <span  class="text-dark" style="font-weight: bold; margin-left: 5%">{% if object.teller_name %} {{ object.teller_name }} {% else %} --- {% endif %}</span></p></li>
+                                                <li><p>Teller Phone:  <span  class="text-dark" style="font-weight: bold; margin-left: 5%">{% if object.teller_phone %} {{ object.teller_phone }} {% else %} --- {% endif %}</span></p></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -55,23 +109,26 @@
                                    {% comment %} Description Row {% endcomment %}
                                     <div class="row">
                                        <div class="col-md-12">
-                                            <span style="font-size: 18px"><i class="fas fa-caret-down"></i> </span>
-                                         <span class="font-weight-bold" style="font-size: 16px">Descriptaions</span>
+                                         <div class="col-lg-12">
+                                             <span class="text-secondary"  style="font-size: 16px">Descriptaions: </span>
                                          <textarea  rows="10" class="form-control" name="comment" id="comment" readonly autofocus>{{ object.description }}</textarea>
+                                         </div>
                                        </div>
                                     </div>
                                 </div>
                             </div>
-                                 <div class="card-footer">
-                                    <a href="{% url 'ONSite:IssueUpdate' object.id %}" data-toggle="modal" data-target="#sub_modal" style="float: right" class="btn btn-warning btn-block-xs">
-                                            <span> <i class="fas fa-edit"></i> Edit</span>
-                                    </a>
-                                </div>
+                             <div class="card-footer">
+                                <a href="{% url 'ONSite:IssueUpdate' object.id %}" data-toggle="modal" data-target="#sub_modal" style="float: right" class="btn btn-warning btn-block-xs">
+                                        <span> <i class="fas fa-edit"></i> Edit</span>
+                                </a>
+                            </div>
                         </div>
 
                         <div class="card mb-lg-32pt" id="files_div">
+                            <div class="card-header bg-dark">
+                               <span class="font-size-20pt text-light">Files And Images</span>
+                            </div>
                             <div class="container-fluid page__container page__container page-section">
-                            <h2>Files</h2>
                                 <div class="row">
                                             {% if files %}
                                             {% for x in files %}
@@ -95,49 +152,67 @@
                                             {% endif %}
 
 
-                                    {% block script %}
 
+                                    </div>
+                                     <form method="post" action="{{ action_url }}" enctype="multipart/form-data">
+                                         <div class="row " style="margin-top:50px">
+                                            {% csrf_token %}
+                                            {# input for multiple files #}
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <input type="file"  id="file" multiple name="file"  width="100%">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                         <div class="card-footer">
+                                             {% if files %}
+                                            <a onclick="delete_fiiles()" class="btn btn-outline-accent-red btn-block-xs" name="delete_files"
+                                               id="delete_files" style="margin-left: 2px; float: left"><span><i class="fas fa-trash-alt"></i> Delete Selected</span></a>
+                                            {% endif %}
+                                            <button style="float: left; margin-left: 2px" class="btn btn-outline-warning btn-block-xs" onclick="updateDiv()"><span><i class="fas fa-sync"></i> Refrach</span></button>
+                                            <button type="submit" style="float: right" class="btn btn-info btn-block-xs"><span> <i class="fas fa-save"></i> save</span></button>
+                                      </div>
+                                     {% block script %}
 
                                         {#  delete multiple items  #}
                                         <script>
-                                            $(document).ready(function(){
-                                                $('#delete_files').click(function(){
-                                                    if(confirm("Are You Sure? ")){
-                                                        var id = [];
-                                                    $(':checkbox:checked').each(function(i){
-                                                        id[i]=$(this).val()
-                                                    })
-                                                    if(id.length===0){
-                                                        alert("please select files to delete?")
-                                                    }else{
-                                                        console.log(id);
-                                                        $.ajax({
-                                                            url: "{% url 'ONSite:DeleteFiles' %}",
-                                                            method: "POST",
-                                                            data:{
-                                                                id,
-                                                                csrfmiddlewaretoken: "{{ csrf_token }}",
-                                                                dataType:"json"
-                                                            },
-                                                            success: function (response){
-                                                                if(response.msg == 1){
-                                                                     $("#files_div")
-                                                                  .html("&nbsp;")
-                                                                  .load(
-                                                                    "{% url 'ONSite:FilesUpdateDive' object.id %}"
-                                                                  );
-                                                                }
-
-                                                            },
-                                                            failure: function (){
-                                                                alert("check Files to delete")
-                                                            }
-                                                        })
-                                                    }
-
-                                                    }
+                                            function delete_fiiles() {
+                                                var id = [];
+                                                $(':checkbox:checked').each(function(i){
+                                                    id[i]=$(this).val()
                                                 })
-                                            })
+
+                                                if(id.length===0){
+                                                    alert("please select files to delete?")
+                                                }
+                                                else{
+                                                    console.log(id);
+                                                    $.ajax({
+                                                        url: "{% url 'ONSite:DeleteFiles' %}",
+                                                        method: "POST",
+                                                        data:{
+                                                            id,
+                                                            csrfmiddlewaretoken: "{{ csrf_token }}",
+                                                            dataType:"json"
+                                                        },
+                                                        success: function (response){
+                                                            if(response.msg == 1){
+                                                                 $("#files_div")
+                                                              .html("&nbsp;")
+                                                              .load(
+                                                                "{% url 'ONSite:FilesUpdateDive' object.id %}"
+                                                              );
+                                                            }
+
+                                                        },
+                                                        failure: function (){
+                                                            alert("check Files to delete")
+                                                        }
+                                                    })
+                                                }
+
+                                            }
                                         </script>
 
                                             <script>
@@ -153,34 +228,15 @@
 
 
                                     {% endblock script %}
-                                    </div>
-                                     <form method="post" action="{{ action_url }}" enctype="multipart/form-data">
-                                    <div class="row " style="margin-top:50px">
-
-                                            {% csrf_token %}
-                                            {# input for multiple files #}
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <input type="file"  id="file" multiple name="file"  width="100%">
-                                                    </div>
-                                                </div>
-
-                                    </div>
-                                         <div class="card-footer">
-                                             {% if files %}
-                                            <a href="#" class="btn btn-outline-accent-red btn-block-xs" name="delete_files"
-                                               id="delete_files" style="margin-left: 2px; float: left"><span><i class="fas fa-trash-alt"></i> Delete Selected</span></a>
-                                            {% endif %}
-                                            <button style="float: left; margin-left: 2px" class="btn btn-outline-warning btn-block-xs" onclick="updateDiv()"><span><i class="fas fa-sync"></i> Refrach</span></button>
-                                            <button type="submit" style="float: right" class="btn btn-info btn-block-xs"><span> <i class="fas fa-save"></i> save</span></button>
-                                      </div>
                                     </form>
 
 
                             </div>
                         </div>
 
-                    {% render_comments issue request %}
+                    <div class="card">
+                         {% render_comments issue request %}
+                    </div>
 
                     </div>
                 </div>

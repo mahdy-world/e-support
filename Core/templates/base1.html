@@ -82,8 +82,6 @@
             </div>
 
 
-            {% include "core/sidebar.html" %}
-
              <!-- sub modal -->
             <div class="modal fade" data-backdrop="static" id="sub_modal">
                 <div class="modal-dialog modal-lg" id="sub_modal2">
@@ -124,6 +122,47 @@
                         );
                 };
 
+        </script>
+
+        <script>
+             $(document).ready(function(){
+                                                $('#delete_files').click(function(){
+                                                    if(confirm("Are You Sure? ")){
+                                                        var id = [];
+                                                    $(':checkbox:checked').each(function(i){
+                                                        id[i]=$(this).val()
+                                                    })
+                                                    if(id.length===0){
+                                                        alert("please select files to delete?")
+                                                    }else{
+                                                        console.log(id);
+                                                        $.ajax({
+                                                            url: "{% url 'ONSite:DeleteFiles' %}",
+                                                            method: "POST",
+                                                            data:{
+                                                                id,
+                                                                csrfmiddlewaretoken: "{{ csrf_token }}",
+                                                                dataType:"json"
+                                                            },
+                                                            success: function (response){
+                                                                if(response.msg == 1){
+                                                                     $("#files_div")
+                                                                  .html("&nbsp;")
+                                                                  .load(
+                                                                    "{% url 'ONSite:FilesUpdateDive' object.id %}"
+                                                                  );
+                                                                }
+
+                                                            },
+                                                            failure: function (){
+                                                                alert("check Files to delete")
+                                                            }
+                                                        })
+                                                    }
+
+                                                    }
+                                                })
+                                            })
         </script>
 
         <script>

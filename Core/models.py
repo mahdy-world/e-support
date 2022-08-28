@@ -16,15 +16,6 @@ class Device(models.Model):
         return self.serial_number
 
 
-# Train Module
-class Train(models.Model):
-    name = models.CharField(max_length=50, null=True, blank=True, verbose_name="Train Name")
-    t_from = models.CharField(max_length=50, null=True, blank=True, verbose_name="From")
-    t_to = models.CharField(max_length=50, null=True, blank=True, verbose_name="To")
-    number = models.IntegerField(verbose_name="Train Number")
-
-    def __str__(self):
-        return self.number
 
 
 
@@ -73,7 +64,11 @@ class Issue(models.Model):
 
     affects_version = models.FloatField(verbose_name="Affects Version", null=True, blank=True)
     fix_version = models.FloatField(verbose_name="Fix Version", null=True, blank=True)
-    train = models.ForeignKey(Train, on_delete=models.CASCADE,   null=True, blank=True, verbose_name="Train")
+
+    train_number = models.CharField(max_length=20, null=True, blank=True,  verbose_name="Train Number")
+    train_from = models.CharField(max_length=20,  null=True, blank=True, verbose_name="Train From")
+    train_to = models.CharField(max_length=20,  null=True, blank=True, verbose_name="Train To")
+
     teller = models.ForeignKey(EnrUser, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Teller")
     station = models.ForeignKey(Station, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Station")
     comments = GenericRelation(Comment)

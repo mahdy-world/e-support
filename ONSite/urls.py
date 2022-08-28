@@ -1,9 +1,9 @@
 from django.urls import path
-from .views import MyIssue, CreateHotIssue,CreateFullIssue, IssueUpdate, FilesUpdate, DeleteFiles, FilesUpdateDive, AssignIssue, IssueDetails
+from .views import  CreateHotIssue,CreateFullIssue, IssueUpdate, FilesUpdate, DeleteFiles, FilesUpdateDive, AssignIssue, IssueDetails
 
 app_name = 'ONSite'
 urlpatterns = [
-    path('myIssue/', MyIssue.as_view(), name="MyIssue"),
+    # path('myIssue/', MyIssue.as_view(), name="MyIssue"),
     path('createHotIssue/', CreateHotIssue.as_view(), name="CreateHotIssue"),
     path('createFullIssue/', CreateFullIssue.as_view(), name="CreateFullIssue"),
     path('update_issue/<int:pk>/', IssueUpdate.as_view(), name='IssueUpdate'),

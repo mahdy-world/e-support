@@ -1,4 +1,6 @@
-{% for x in issue %}
+
+{% if object_list %}
+    {% for x in object_list %}
 <div class="card posts-card" >
      <div class="posts-card__content d-flex align-items-center flex-wrap" >
         <div class="mr-4 issue-card">
@@ -44,3 +46,6 @@
 </div>
 
 {% endfor %}
+{% else %}
+    no data
+{% endif %}

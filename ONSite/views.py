@@ -13,20 +13,19 @@ from.models import Issue
 from AdminMedule.models import Status
 
 # My Issue Method
-class MyIssue(LoginRequiredMixin, ListView):
-    login_url = '/auth/login'
-    model = Issue
-    paginate = 50
-    template_name = 'Core/index.html'
+# class MyIssue(LoginRequiredMixin, ListView):
+#     login_url = '/auth/login'
+#     model = Issue
+#     paginate = 50
+#     template_name = 'ONSite/on_site_issue_div.html'
+#
+#     def get_queryset(self):
+#         queryset = self.model.objects.filter(reporter=self.request.user)
+#         if self.request.GET.get('issue_number'):
+#             print(self.request.GET.get('issue_number'))
+#             queryset= self.model.objects.filter(id=self.request.GET.get('issue_number'))
+#         return queryset
 
-    def get_queryset(self):
-        queryset = self.model.objects.filter(reporter=self.request.user)
-        return queryset
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['issue'] = self.queryset
-        return context
 
 
 # Create Hot Issue Method
@@ -112,7 +111,7 @@ class IssueUpdate(LoginRequiredMixin, UpdateView):
     login_url = '/auth/login'
     model = Issue
     form_class = CreateIssueForm
-    template_name = 'forms/hot_issue.html'
+    template_name = 'forms/full_issue.html'
     success_url = reverse_lazy('Core:Index')
 
     def get_context_data(self, **kwargs):
