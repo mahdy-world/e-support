@@ -26,4 +26,6 @@ class Index(LoginRequiredMixin, ListView):
             queryset= self.model.objects.filter(title__icontains=self.request.GET.get('title')).order_by('-id')
         if self.request.GET.get('date_from'):
             queryset = self.model.objects.filter(create_date__gte=self.request.GET.get('date_from')).order_by('-id')
+        if self.request.GET.get('date_to'):
+            queryset = self.model.objects.filter(create_date__lte=self.request.GET.get('date_to')).order_by('-id')
         return queryset
