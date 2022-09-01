@@ -1,0 +1,135 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <thnk href="invoice.css" media="print" rel="stylesheet">
+    <title>Invoice</title>
+    <meta name="description" content="Invoice demo sample">
+  </head>
+
+  <body>
+    <h1><img src='/static/assets/images/ecards1.png' width="200px"></h1>
+
+
+
+    <dl id="informations">
+      <dt>Issue number</dt>
+      <dd>#{{ issue.id }}</dd>
+      <dt>Date</dt>
+      <dd>{{ date}}</dd>
+    </dl>
+
+    <div style="overflow-x: auto; margin-top: 50px">
+      <table>
+        <tr>
+            <th>
+                <p>
+                    Title: <span style="font-weight: bold">{{ issue.title }}</span>
+                </p>
+            </th>
+
+            <th>
+                <p>
+                </p>
+            </th>
+
+            <th>
+                <p>
+                </p>
+            </th>
+
+            <th>
+                <p>
+                </p>
+            </th>
+        </tr>
+        <tr>
+            <th>
+                <p>
+                    Status: <span  style="font-weight: bold; ">{{ issue.status}}</span>
+                </p>
+            </th>
+
+            <th>
+                <p>
+                    Type: <span class="text-dark" style="font-weight: bold;">{{ issue.issue_type }}</span>
+                </p>
+            </th>
+
+            <th>
+                <p>
+                    Channel: <span class="text-dark" style="font-weight: bold">{{ issue.channel }}</span>
+                </p>
+            </th>
+
+            <th>
+                <p>
+                    Module: <span class="text-dark" style="font-weight: bold">{{ issue.module }}</span>
+                </p>
+            </th>
+        </tr>
+
+
+
+      <tr>
+             <th><p>Affec's Version:  <span  class="text-dark" style="font-weight: bold; margin-left: 5%">{% if issue.affects_version %} {{ issue.affects_version }} {% else %} --- {% endif %}</span></p></th>
+                <th><p>Fix's Vesrion:  <span class="text-dark" style="font-weight: bold; margin-left: 5%"> {% if issue.fix_version %} {{ issue.fix_version}} {% else %} --- {% endif %}</span></p></th>
+                <th><p>Station:  <span class="text-dark" style="font-weight: bold; margin-left: 5%"> {% if issue.station %} {{ issue.station }} {% else %} --- {% endif %}</span></p></th>
+                <th><p>Office:  <span class="text-dark" style="font-weight: bold; margin-left: 5%"> {% if issue.affects_version %} {{ issue.affects_version }} {% else %} --- {% endif %}</span></p></th>
+
+      </tr>
+
+      <tr>
+          <th><p>Train Number:  <span class="text-dark" style="font-weight: bold; margin-left: 5%"> {% if issue.train_number %} {{ issue.train_number }} {% else %} --- {% endif %}</span></p></th>
+                <th><p>Train From:  <span class="text-dark" style="font-weight: bold; margin-left: 5%"> {% if issue.train_from %} {{ issue.train_from }} {% else %} --- {% endif %}</span></p></th>
+                <th><p>Train To:  <span class="text-dark" style="font-weight: bold; margin-left: 5%"> {% if issue.train_to %} {{ issue.train_to }} {% else %} --- {% endif %}</span></p></th>
+                <th><p>M-Number:  <span class="text-dark" style="font-weight: bold; margin-left: 5%"> {% if issue.trans_number %} {{ issue.trans_number }} {% else %} --- {% endif %}</span></p></th>
+      </tr>
+        
+      <tr>
+            <th><p>Creator:  <span  class="text-dark" style="font-weight: bold; margin-left: 5%">{% if issue.reporter %} {{ issue.reporter }} {% else %} --- {% endif %}</span></p></th>
+            <th><p>Follwer:  <span  class="text-dark" style="font-weight: bold; margin-left: 5%">{% if issue.follwer %} {{ issue.follwer }} {% else %} --- {% endif %}</span></p></th>
+            <th><p>Teller:  <span  class="text-dark" style="font-weight: bold; margin-left: 5%">{% if issue.teller_name %} {{ issue.teller_name }} {% else %} --- {% endif %}</span></p></th>
+            <th><p>Teller Phone:  <span  class="text-dark" style="font-weight: bold; ">{% if issue.teller_phone %} {{ issue.teller_phone }} {% else %} --- {% endif %}</span></p>
+      </tr>
+
+        <tr>
+             <th>
+                  <p>
+                      Sb Type:  <span class="text-dark" style="font-weight: bold; ">{{ issue.subscription_type }}</span>
+                  </p>
+             </th>
+
+             <th>
+                 <p>
+                     Sb Number:  <span class="text-dark" style="font-weight: bold; ">{{ isuee.subscription_number }}</span>
+                 </p>
+             </th>
+
+            <th>
+                 <p>
+                     Sb Expiry Date:  <span class="text-dark" style="font-weight: bold; ">{{ isuee.subscription_expiry_date }}</span>
+                 </p>
+             </th>
+
+
+        </tr>
+
+
+      </table>
+
+    <div style="margin-top: 50px">
+        <label  for="des" style="font-weight: bold">Descriptaions:</label>
+        <textarea id="des" style=" margin-top: 10px; border: solid #171a1d 1px; border-radius: 2px; text-align: justify-all; padding: 2px">
+            {% if  issue.description  %}
+                {{ issue.description }}
+            {% else %}
+                -----------------------------------------------------------------------------------------
+            {% endif %}
+        </textarea>
+    </div>
+</div>
+
+
+
+  </body>
+</html>

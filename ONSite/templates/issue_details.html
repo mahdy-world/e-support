@@ -118,9 +118,20 @@
                                 </div>
                             </div>
                              <div class="card-footer">
-                                <a href="{% url 'ONSite:IssueUpdate' object.id %}" data-toggle="modal" data-target="#sub_modal" style="float: right" class="btn btn-warning btn-block-xs">
-                                        <span> <i class="fas fa-edit"></i> Edit</span>
-                                </a>
+{#                                <a href="{% url 'ONSite:IssueUpdate' object.id %}" data-toggle="modal" data-target="#sub_modal" style="float: right" class="btn btn-warning btn-block-xs">#}
+{#                                        <span> <i class="fas fa-edit"></i> Edit</span>#}
+{#                                </a>#}
+
+                                 <div class="dropdown ml-auto">
+                                     <a href="#" data-toggle="dropdown" data-caret="false" aria-expanded="false"><i class="material-icons">more_vert</i></a>
+                                    <div class="dropdown-menu dropdown-menu-right" style="">
+                                        <a href="{% url 'ONSite:AssignIssue' object.id %}" data-toggle="modal" data-target="#sub_modal" class="dropdown-item"><Span><i class="fas fa-reply"></i> Assign</Span></a>
+                                        <a href="{% url 'ONSite:FollwerAssign' object.id %}" data-toggle="modal" data-target="#sub_modal" class="dropdown-item"><Span><i class="fas fa-angle-double-right"></i> Follwer</Span></a>
+                                        <a href="{% url 'ONSite:IssueUpdate' object.id %}" data-toggle="modal" data-target="#sub_modal" class="dropdown-item" ><span><i class="fas fa-pencil-alt"></i> Edit</span></a>
+                                        <a href="{% url 'ONSite:PrintIssue' object.id %}"  class="dropdown-item" ><span><i class="fas fa-file-pdf"></i> Print</span></a>
+            {#                            <a data-target="#sub_modal" class="dropdown-item" data-toggle="modal" href="{% url 'ONSite:FilesUpdate' object.id %}"><span><i class="fas fa-folder-open"></i> Files</span> </a>#}
+                                </div>
+                    </div>
                             </div>
                         </div>
 

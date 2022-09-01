@@ -1,9 +1,11 @@
 
 <div class="collapse" id="filter_div">
-     <div class="card card-body">
+    <div class="card">
+        <div class="card-header bg-dark">
+           <span class="font-size-20pt text-light"><i class="fas fa-filter"></i> Filter</span>
+        </div>
          <form method="get" action="#"  style="height: 80%">
               <div class="card-body">
-
                     <div class="row">
                         <div class="col-lg-4 col-sm-12">
                             <div class="form-group" >
@@ -14,31 +16,32 @@
                         <div class="col-lg-6 col-sm-12">
                             <div class="form-group">
                                 <label for="title">title</label>
-                                <select id="title" name="title"  data-toggle="select" class="form-control">
-                                    <option>register</option>
-                                    <option>HTML</option>
-                                    <option>JavaScript</option>
-                                    <option>Bootstrap</option>
-                                </select>
+                                <input id="title" name="title"  placeholder="Type here...."  class="form-control border border-primary" />
                              </div>
                         </div>
 
                          <div class="col-lg-2 col-sm-12">
                             <div class="form-group">
                             <label for="issue_number">Status</label>
-                                <input type="text" id="status" name="status" placeholder="Type here...." class="form-control border border-primary"/>
+                                <select id="status" name="status" data-toggle="select" multiple class="form-control border border-primary">
+                                    {% if status %}
+                                        {% for x in status %}
+                                        <option value={{ x.id }}>{{ x.name }}</option>
+                                        {% endfor %}
+                                    {% endif %}
+                                </select>
                             </div>
                         </div>
 
                         <div class="col-lg-6 col-sm-12">
-
                              <div class="form-group">
-                                <label for="lebel">Label</label>
-                                <select id="label" name="label" data-toggle="select" multiple class="form-control">
-                                    <option >CSS</option>
-                                    <option>HTML</option>
-                                    <option>JavaScript</option>
-                                    <option>Bootstrap</option>
+                                <label for="module">Module</label>
+                                <select id="module" name="module" data-toggle="select" multiple class="form-control border border-primary">
+                                    {% if module %}
+                                        {% for i in module %}
+                                         <option value={{ i.id }}>{{ i.name }}</option>
+                                        {% endfor %}
+                                    {% endif %}
                                 </select>
                             </div>
                         </div>
@@ -52,7 +55,7 @@
 
                         <div class="col-lg-3 col-sm-12">
                             <div class="form-group">
-                                 <label for="issue_number">Date To</label>
+                                 <label for="date_to">Date To</label>
                                 <input type="date" id="date_to"  name="date_to" placeholder="Type here...." class="form-control border border-primary"/>
                             </div>
                         </div>
@@ -68,6 +71,8 @@
                 </div>
 
          </form>
-     </div>
+
+    </div>
+
 </div>
 

@@ -22,7 +22,7 @@ class CreateIssueForm(forms.ModelForm):
             'train_from': forms.TextInput(attrs={'class': 'form-control border border-primary ', 'id': 'train_from','name': 'train_from'}),
             'train_to': forms.TextInput(attrs={'class': 'form-control border border-primary ', 'id': 'train_to','name': 'train_to'}),
 
-            'station' : forms.Select(attrs={'class':'form-control border border-primary ', 'id':'train', 'name':'station'}),
+            'station' : forms.Select(attrs={'class':'form-control border border-primary ', 'id':'station', 'name':'station'}),
             'subscription_type':forms.TextInput(attrs={'class':'form-control border border-primary ', 'id':'subscription_type', 'name':'subscription_type'}),
             'subscription_number':forms.NumberInput(attrs={'class':'form-control border border-primary ', 'id':'subscription_number', 'name':'subscription_number'}),
             'subscription_expiry_date':forms.DateInput(attrs={'class':'form-control border border-primary ', 'type':'date', 'id':'subscription_expiry_date', 'name':'subscription_expiry_date'}),
@@ -49,5 +49,14 @@ class AssignForm(forms.ModelForm):
             'reporter': forms.Select(attrs={'class':'form-control border border-primary', 'id':'reporter', 'name':'reporter'})
         }
 
+
+class Follwer(forms.ModelForm):
+    class Meta:
+        model = Issue
+        fields = ['follwer']
+
+        widgets = {
+            'follwer': forms.Select(attrs={'class':'form-control border border-primary', 'id':'follwer', 'name':'follwer'})
+        }
 
 

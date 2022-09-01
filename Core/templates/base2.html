@@ -120,7 +120,7 @@
                                 <ol class="breadcrumb p-0 m-0">
                                     <li class="breadcrumb-item"><a href="{% url 'Core:Index' %}">Home</a></li>
                                     <li class="breadcrumb-item active">
-                                        My Issues done
+                                        My Issues
                                     </li>
                                 </ol>
                         </div>
@@ -128,7 +128,6 @@
                             {% block issue_div %}
 
                             {% endblock %}
-
 
                         </div>
                     </div>
@@ -143,7 +142,7 @@
              <!-- sub modal -->
             <div class="modal fade " data-backdrop="static" id="sub_modal">
                 <div class="modal-dialog modal-lg" id="sub_modal2"  >
-                    <div class="modal-content " id="sub_body" >
+                    <div class="modal-content" id="sub_body" >
                             <span class="float-left">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </span>
@@ -162,9 +161,11 @@
                 $('#module').select2({width: '100%', placeholder:'Search...'});
                 $('#channel').select2({width: '100%', placeholder:'Search...'});
                 $('#priority').select2({width: '100%', placeholder:'Search...'});
-                $('#title').select2({width: '100%', placeholder:'Search...'});
-                $("#select03").select2({
-                maximumSelectionLength: 2
+                $('#status').select2({width: '100%', placeholder:'Search...'});
+                $('#follwer').select2({width: '100%', placeholder:'Search...'});
+                $("#module").select2({
+                maximumSelectionLength: 2,
+                    placeholder:'search'
                 });
             });
          </script>
@@ -176,7 +177,7 @@
 
         <!-- jQuery -->
         <script src="/static/huma/assets/vendor/jquery.min.js"></script>
-        <script src="{% static 'assets/vendor/Zero.js' %}"></script>
+        <script src="/static/assets/vendor/Zero.js"></script>
 
         <!-- Bootstrap -->
         <script src="/static/huma/assets/vendor/popper.min.js"></script>

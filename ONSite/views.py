@@ -1,16 +1,18 @@
+import weasyprint
 from django.shortcuts import render
 from ONSite.models import Files
 from django.views.generic import ListView, UpdateView, CreateView, DetailView
 from django.contrib.auth.mixins import  LoginRequiredMixin
-from .forms import CreateIssueForm, FilesForm, AssignForm
+from .forms import CreateIssueForm, FilesForm, AssignForm, Follwer
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic.edit import FormView
 import datetime
 from django.contrib import messages
-from django.http import HttpResponseRedirect, JsonResponse, response
+from django.http import HttpResponseRedirect, JsonResponse, response, HttpResponse
 from.models import Issue
 from AdminMedule.models import Status
+from django.template.loader import render_to_string
 
 # My Issue Method
 # class MyIssue(LoginRequiredMixin, ListView):
@@ -41,7 +43,6 @@ class CreateHotIssue(LoginRequiredMixin, FormView):
         context['title'] = 'New Issue'
         context['message'] = 'add'
         context['action_url'] = reverse_lazy('ONSite:CreateHotIssue')
-
         return context
 
     # create with save multiple file
@@ -256,6 +257,30 @@ class AssignIssue(LoginRequiredMixin, UpdateView):
             return self.success_url
 
 
+class FollwerAssign(LoginRequiredMixin, UpdateView):
+    login_url = '/auth/login/'
+    model = Issue
+    form_class = Follwer
+    template_name = 'forms/follwer_form.html'
+    success_url = reverse_lazy('Core:Index')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['action_url'] = reverse_lazy('ONSite:FollwerAssign', kwargs={'pk': self.object.id})
+        context['title'] = 'Assign To Follwer'
+        context['message'] = 'add'
+        context['form'] = self.form_class
+        return context
+
+    def get_success_url(self):
+        messages.success(self.request, "Assigned Succesfuly ", extra_tags="success")
+        if self.request.POST.get('url'):
+            return self.request.POST.get('url')
+        else:
+            return self.success_url
+
+
+
 # Issue Details Method
 class IssueDetails(LoginRequiredMixin, DetailView):
     login_url = '/auth/login/'
@@ -270,3 +295,17 @@ class IssueDetails(LoginRequiredMixin, DetailView):
 
 
 
+def print_issue(request, pk):
+    issue = Issue.objects.get(id=pk)
+    date = datetime.datetime.now()
+
+    context = {
+        'user': request.user,
+        'issue': issue,
+        'date': date
+    }
+    html_string = render_to_string('print_issue.html', context)
+    html = weasyprint.HTML(string=html_string, base_url=request.build_absolute_uri())
+    pdf = html.write_pdf(stylesheets=[weasyprint.CSS('static/assets/css/issue_pdf.css')], presentational_hints=True)
+    response = HttpResponse(pdf, content_type='application/pdf')
+    return response

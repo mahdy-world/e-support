@@ -1,4 +1,3 @@
-
 {% if object_list %}
     {% for x in object_list %}
 <div class="card posts-card" >
@@ -33,13 +32,17 @@
                     <div class="ml-2  d-flex align-items-center">
                         <h5>{{ x.module }}</h5>
                     </div>
+                    <div class="ml-2  d-flex align-items-center">
+                        <h5></h5>
+                    </div>
                 </div>
                     <div class="dropdown ml-auto">
                          <a href="#" data-toggle="dropdown" data-caret="false" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                         <div class="dropdown-menu dropdown-menu-right" style="">
                             <a href="{% url 'ONSite:AssignIssue' x.id %}" data-toggle="modal" data-target="#sub_modal" class="dropdown-item"><Span><i class="fas fa-reply"></i> Assign</Span></a>
+                            <a href="{% url 'ONSite:FollwerAssign' x.id %}" data-toggle="modal" data-target="#sub_modal" class="dropdown-item"><Span><i class="fas fa-angle-double-right"></i> Follwer</Span></a>
                             <a href="{% url 'ONSite:IssueUpdate' x.id %}" data-toggle="modal" data-target="#sub_modal" class="dropdown-item" ><span><i class="fas fa-pencil-alt"></i> Edit</span></a>
-                            <a data-target="#sub_modal" class="dropdown-item" data-toggle="modal" href="{% url 'ONSite:FilesUpdate' x.id %}"><span><i class="fas fa-folder-open"></i> Files</span> </a>
+{#                            <a data-target="#sub_modal" class="dropdown-item" data-toggle="modal" href="{% url 'ONSite:FilesUpdate' x.id %}"><span><i class="fas fa-folder-open"></i> Files</span> </a>#}
                         </div>
                     </div>
     </div>
@@ -47,5 +50,20 @@
 
 {% endfor %}
 {% else %}
-    no data
+    <div class="row">
+        <div class="col-lg-12 ">
+           <div class="alert alert-accent-red" role="alert">
+                <div class="d-flex flex-wrap align-items-start">
+                    <div class="mr-8pt">
+                        <i class="material-icons">access_time</i>
+                    </div>
+                    <div class="flex" style="min-width: 180px">
+                        <small class="text-black-100">
+                            <strong>Sorry!</strong> No Issues!.
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endif %}

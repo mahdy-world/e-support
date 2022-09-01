@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import  CreateHotIssue,CreateFullIssue, IssueUpdate, FilesUpdate, DeleteFiles, FilesUpdateDive, AssignIssue, IssueDetails
+from .views import  CreateHotIssue,CreateFullIssue, print_issue, IssueUpdate, FilesUpdate, DeleteFiles, FilesUpdateDive, AssignIssue, IssueDetails, FollwerAssign
 
 app_name = 'ONSite'
 urlpatterns = [
@@ -11,5 +11,7 @@ urlpatterns = [
     path('delete_files/', DeleteFiles, name='DeleteFiles'),
     path('div_files/<int:pk>/', FilesUpdateDive.as_view(), name='FilesUpdateDive'),
     path('assign_issue/<int:pk>/', AssignIssue.as_view(), name='AssignIssue'),
-    path('issue_details/<int:pk>/', IssueDetails.as_view(), name='IssueDetails')
+    path('assign_follwer/<int:pk>/', FollwerAssign.as_view(), name='FollwerAssign'),
+    path('issue_details/<int:pk>/', IssueDetails.as_view(), name='IssueDetails'),
+    path('issue_print/<int:pk>/', print_issue, name='PrintIssue')
 ]

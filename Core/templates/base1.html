@@ -96,33 +96,7 @@
 
         </div>
 
-        <script>
 
-        function issue_open(){
-           $("#issue_list")
-                .html("&nbsp;")
-                .load(
-                  "{% url 'Core:IssueList_div' 1 %}"
-                );
-        };
-
-        function issue_close(){
-            $("#issue_list")
-                .html("&nbsp;")
-                .load(
-                  "{% url 'Core:IssueList_div' 2 %}"
-                );
-        };
-
-        function issue_index(){
-                    $("#issue_list")
-                        .html("&nbsp;")
-                        .load(
-                          "{% url 'Core:Index_div' %}"
-                        );
-                };
-
-        </script>
 
         <script>
              $(document).ready(function(){

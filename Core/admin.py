@@ -1,11 +1,11 @@
 from django.contrib import admin
 from .models import Issue, EnrUser
 # Register your models here.
-# @admin.register(Issue)
-# class IssuesAdmin(admin.ModelAdmin):
-#     list_display = ( "title", "jira_id" , "environment", "module",
-#     "channel", "issue_type", "priority", "status", "affects_version")
-#     list_filter = ("jira_id", "status","channel","module", "creator", "environment")
+@admin.register(Issue)
+class IssuesAdmin(admin.ModelAdmin):
+    list_display = ( "title", "jira_id" , "environment", "module",
+    "channel", "issue_type", "priority", "status", "affects_version")
+    list_filter = ("jira_id", "status","channel","module", "environment")
 
 
 @admin.register(EnrUser)

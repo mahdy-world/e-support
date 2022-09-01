@@ -8,7 +8,7 @@ from django.contrib import messages
 from .models import Issue, Status
 from django_user_agents.utils import get_user_agent
 from django.views.generic import ListView, UpdateView, CreateView, DetailView
-
+from .models import Status, Module
 # Create your views here.
 
 
@@ -18,8 +18,15 @@ class Index(LoginRequiredMixin, ListView):
     paginate = 50
     template_name = 'Core/index.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['status'] = Status.objects.all()
+        context['module'] = Module.objects.all()
+        return context
+
+
     def get_queryset(self):
-        queryset = self.model.objects.filter(reporter=self.request.user).order_by('-id')
+        queryset = self.model.objects.filter(reporter=self.request.user).order_by('-id') | self.model.objects.filter(follwer=self.request.user).order_by('-id')
         if self.request.GET.get('issue_number'):
             queryset= self.model.objects.filter(id=self.request.GET.get('issue_number')).order_by('-id')
         if self.request.GET.get('title'):
@@ -28,4 +35,8 @@ class Index(LoginRequiredMixin, ListView):
             queryset = self.model.objects.filter(create_date__gte=self.request.GET.get('date_from')).order_by('-id')
         if self.request.GET.get('date_to'):
             queryset = self.model.objects.filter(create_date__lte=self.request.GET.get('date_to')).order_by('-id')
+        if self.request.GET.get('module'):
+            queryset = self.model.objects.filter(module__in=self.request.GET.get('module'))
+        if self.request.GET.get('status'):
+            queryset = self.model.objects.filter(status_id__in=self.request.GET.get('status'))
         return queryset

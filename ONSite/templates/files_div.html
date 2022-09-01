@@ -1,6 +1,6 @@
-<div class="card-header bg-dark">
-                               <span class="font-size-20pt text-light">Files And Images</span>
-                            </div>
+  <div class="card-header bg-dark">
+    <span class="font-size-20pt text-light">Files And Images</span>
+</div>
 <div class="container-fluid page__container page__container page-section">
     <div class="row">
                 {% if files %}
@@ -25,62 +25,7 @@
                 {% endif %}
 
 
-        {% block script %}
 
-
-            {#  delete multiple items  #}
-            <script>
-                                            function delete_fiiles() {
-                                                var id = [];
-                                                $(':checkbox:checked').each(function(i){
-                                                    id[i]=$(this).val()
-                                                })
-
-                                                if(id.length===0){
-                                                    alert("please select files to delete?")
-                                                }
-                                                else{
-                                                    console.log(id);
-                                                    $.ajax({
-                                                        url: "{% url 'ONSite:DeleteFiles' %}",
-                                                        method: "POST",
-                                                        data:{
-                                                            id,
-                                                            csrfmiddlewaretoken: "{{ csrf_token }}",
-                                                            dataType:"json"
-                                                        },
-                                                        success: function (response){
-                                                            if(response.msg == 1){
-                                                                 $("#files_div")
-                                                              .html("&nbsp;")
-                                                              .load(
-                                                                "{% url 'ONSite:FilesUpdateDive' object.id %}"
-                                                              );
-                                                            }
-
-                                                        },
-                                                        failure: function (){
-                                                            alert("check Files to delete")
-                                                        }
-                                                    })
-                                                }
-
-                                            }
-                                        </script>
-
-                <script>
-                    function updateDiv()
-                        {
-                          $("#files_div")
-                          .html("&nbsp;")
-                          .load(
-                            "{% url 'ONSite:FilesUpdateDive' object.id %}")
-                        }
-                </script>
-
-
-
-        {% endblock script %}
         </div>
          <form method="post" action="{{ action_url }}" enctype="multipart/form-data">
              <div class="row " style="margin-top:50px">
@@ -95,12 +40,67 @@
 
              <div class="card-footer">
                  {% if files %}
-                <a href="#" class="btn btn-outline-accent-red btn-block-xs" name="delete_files"
+                <a onclick="delete_fiiles()" class="btn btn-outline-accent-red btn-block-xs" name="delete_files"
                    id="delete_files" style="margin-left: 2px; float: left"><span><i class="fas fa-trash-alt"></i> Delete Selected</span></a>
                 {% endif %}
                 <button style="float: left; margin-left: 2px" class="btn btn-outline-warning btn-block-xs" onclick="updateDiv()"><span><i class="fas fa-sync"></i> Refrach</span></button>
                 <button type="submit" style="float: right" class="btn btn-info btn-block-xs"><span> <i class="fas fa-save"></i> save</span></button>
           </div>
+         {% block script %}
+
+            {#  delete multiple items  #}
+            <script>
+                function delete_fiiles() {
+                    var id = [];
+                    $(':checkbox:checked').each(function(i){
+                        id[i]=$(this).val()
+                    })
+
+                    if(id.length===0){
+                        alert("please select files to delete?")
+                    }
+                    else{
+                        console.log(id);
+                        $.ajax({
+                            url: "{% url 'ONSite:DeleteFiles' %}",
+                            method: "POST",
+                            data:{
+                                id,
+                                csrfmiddlewaretoken: "{{ csrf_token }}",
+                                dataType:"json"
+                            },
+                            success: function (response){
+                                if(response.msg == 1){
+                                     $("#files_div")
+                                  .html("&nbsp;")
+                                  .load(
+                                    "{% url 'ONSite:FilesUpdateDive' object.id %}"
+                                  );
+                                }
+
+                            },
+                            failure: function (){
+                                alert("check Files to delete")
+                            }
+                        })
+                    }
+
+                }
+            </script>
+
+                <script>
+                    function updateDiv()
+                        {
+                          $("#files_div")
+                          .html("&nbsp;")
+                          .load(
+                            "{% url 'ONSite:FilesUpdateDive' object.id %}")
+                        }
+                </script>
+
+
+
+        {% endblock script %}
         </form>
 
 
