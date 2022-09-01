@@ -43,20 +43,20 @@ class FilesForm(forms.ModelForm):
 class AssignForm(forms.ModelForm):
     class Meta:
         model = Issue
-        fields = ['reporter']
+        fields = ['assignee']
 
         widgets = {
-            'reporter': forms.Select(attrs={'class':'form-control border border-primary', 'id':'reporter', 'name':'reporter'})
+            'assignee': forms.Select(attrs={'class':'form-control border border-primary', 'id':'assignee', 'name':'assignee'})
         }
 
 
 class Follwer(forms.ModelForm):
     class Meta:
         model = Issue
-        fields = ['follwer']
+        fields = ['actor']
 
         widgets = {
-            'follwer': forms.Select(attrs={'class':'form-control border border-primary', 'id':'follwer', 'name':'follwer'})
+            'actor': forms.Select(attrs={'class':'form-control border border-primary', 'id':'actor', 'name':'actor'})
         }
 
 

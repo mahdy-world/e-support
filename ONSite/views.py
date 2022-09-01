@@ -11,8 +11,9 @@ import datetime
 from django.contrib import messages
 from django.http import HttpResponseRedirect, JsonResponse, response, HttpResponse
 from.models import Issue
-from AdminMedule.models import Status
+from AdminMedule.models import Status, Priroty
 from django.template.loader import render_to_string
+from Auth.models import User
 
 # My Issue Method
 # class MyIssue(LoginRequiredMixin, ListView):
@@ -43,6 +44,8 @@ class CreateHotIssue(LoginRequiredMixin, FormView):
         context['title'] = 'New Issue'
         context['message'] = 'add'
         context['action_url'] = reverse_lazy('ONSite:CreateHotIssue')
+
+
         return context
 
     # create with save multiple file
@@ -56,7 +59,9 @@ class CreateHotIssue(LoginRequiredMixin, FormView):
         if form.is_valid():
             issue = form.save(commit=False)
             issue.reporter = request.user
+            issue.assignee = request.user
             issue.status = Status(1)
+            issue.priority = Priroty(5)
             issue.create_date = datetime.date.today()
             issue.save()
             if file != None:
@@ -309,3 +314,4 @@ def print_issue(request, pk):
     pdf = html.write_pdf(stylesheets=[weasyprint.CSS('static/assets/css/issue_pdf.css')], presentational_hints=True)
     response = HttpResponse(pdf, content_type='application/pdf')
     return response
+

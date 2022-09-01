@@ -1,50 +1,59 @@
 {% if object_list %}
     {% for x in object_list %}
-<div class="card posts-card" >
+<div class="card
+    {% if x.status.id == 1 %}
+        bg-light
+    {% elif x.status.id == 2 %}
+        bg-success
+    {% elif x.status.id == 3 %}
+        bg-warning
+    {% elif x.status.id == 4 %}
+        bg-info
+    {% elif x.status.id == 5 %}
+        bg-danger
+    {% elif x.status.id == 6 %}
+        bg-danger
+    {% endif %}
+ posts-card" >
      <div class="posts-card__content d-flex align-items-center flex-wrap" >
         <div class="mr-4 issue-card">
             <h3><a href="{% url 'ONSite:IssueDetails' x.id %}">#{{ x.id }}</a></h3>
         </div>
-            <div class="posts-card__title flex d-flex flex-column">
-                <h5 class="card-title text-primary m-0">
+            <div class="posts-card__title d-flex flex-column">
+                <h5 class="card-title text-dark m-0">
                     <a href="{% url 'ONSite:IssueDetails' x.id %}" class="headings-color">{% if x.title %} {{ x.title }} {% endif %}</a></h5>
                 <small class="text-50">{% if x.create_date %} {{ x.create_date|date:"D d M Y" }} {{ x.create_date|time:"H:i" }} {% endif %}</small>
             </div>
-                <div class="d-flex align-items-center flex-row flex-md-row posts-card__meta">
-                     <div class="d-flex align-items-center">
 
-                        <p class="
-                        {% if x.status.id == 1 %}
-                        text-danger
-                        {% elif x.status.id == 2 %}
-                        text-success
-                        {% else %}
-                        text-warning
-                        {% endif %}
-                          "
-                        >
-                        {{ x.status }}
-                        </p>
-                    </div>
-                    <div class="ml-2 0 d-flex align-items-center">
-                        <h5>{{ x.channel }}</h5>
-                    </div>
-                    <div class="ml-2  d-flex align-items-center">
-                        <h5>{{ x.module }}</h5>
-                    </div>
-                    <div class="ml-2  d-flex align-items-center">
-                        <h5></h5>
-                    </div>
+            <div class="d-flex align-items-center flex-row flex-md-row posts-card__meta">
+                 <div class="d-flex p-2 align-items-center">
+                    <p class="font-size-18pt">
+                      <i class="{{ x.priority.icon }}"></i>
+                        {% if x.priority.name %} {{ x.priority.name }} / {% endif %}
+                        {% if  x.status  %} {{ x.status }} {% endif %}
+                    </p>
                 </div>
-                    <div class="dropdown ml-auto">
-                         <a href="#" data-toggle="dropdown" data-caret="false" aria-expanded="false"><i class="material-icons">more_vert</i></a>
-                        <div class="dropdown-menu dropdown-menu-right" style="">
-                            <a href="{% url 'ONSite:AssignIssue' x.id %}" data-toggle="modal" data-target="#sub_modal" class="dropdown-item"><Span><i class="fas fa-reply"></i> Assign</Span></a>
-                            <a href="{% url 'ONSite:FollwerAssign' x.id %}" data-toggle="modal" data-target="#sub_modal" class="dropdown-item"><Span><i class="fas fa-angle-double-right"></i> Follwer</Span></a>
-                            <a href="{% url 'ONSite:IssueUpdate' x.id %}" data-toggle="modal" data-target="#sub_modal" class="dropdown-item" ><span><i class="fas fa-pencil-alt"></i> Edit</span></a>
+                <div class=" d-flex p-2 align-items-center">
+                    <h5>{{ x.channel }} / {{ x.module }}</h5>
+                </div>
+
+                <div class=" p-2 d-flex align-items-center">
+                    <h6 class="text-uppercase">
+                        RE: {{ x.reporter }}
+                        {% if x.assignee %} / AS: {{ x.assignee }} {% endif %}
+                        {% if x.actor %} / AC: {{ x.actor }} {% endif %}
+                    </h6>
+                </div>
+            </div>
+            <div class="dropdown ml-auto">
+                 <a href="#" data-toggle="dropdown" data-caret="false" aria-expanded="false"><i class="material-icons">more_vert</i></a>
+                <div class="dropdown-menu dropdown-menu-right" style="">
+                    <a href="{% url 'ONSite:AssignIssue' x.id %}" data-toggle="modal" data-target="#sub_modal" class="dropdown-item"><Span><i class="fas fa-reply"></i> Assign</Span></a>
+                    <a href="{% url 'ONSite:FollwerAssign' x.id %}" data-toggle="modal" data-target="#sub_modal" class="dropdown-item"><Span><i class="fas fa-angle-double-right"></i> Actor</Span></a>
+                    <a href="{% url 'ONSite:IssueUpdate' x.id %}" data-toggle="modal" data-target="#sub_modal" class="dropdown-item" ><span><i class="fas fa-pencil-alt"></i> Edit</span></a>
 {#                            <a data-target="#sub_modal" class="dropdown-item" data-toggle="modal" href="{% url 'ONSite:FilesUpdate' x.id %}"><span><i class="fas fa-folder-open"></i> Files</span> </a>#}
-                        </div>
-                    </div>
+                </div>
+            </div>
     </div>
 </div>
 

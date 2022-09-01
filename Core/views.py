@@ -9,6 +9,7 @@ from .models import Issue, Status
 from django_user_agents.utils import get_user_agent
 from django.views.generic import ListView, UpdateView, CreateView, DetailView
 from .models import Status, Module
+from Auth.models import User
 # Create your views here.
 
 
@@ -26,7 +27,7 @@ class Index(LoginRequiredMixin, ListView):
 
 
     def get_queryset(self):
-        queryset = self.model.objects.filter(reporter=self.request.user).order_by('-id') | self.model.objects.filter(follwer=self.request.user).order_by('-id')
+        queryset = self.model.objects.filter(reporter=self.request.user).order_by('-id') | self.model.objects.filter(assignee=self.request.user).order_by('-id')
         if self.request.GET.get('issue_number'):
             queryset= self.model.objects.filter(id=self.request.GET.get('issue_number')).order_by('-id')
         if self.request.GET.get('title'):
@@ -39,4 +40,17 @@ class Index(LoginRequiredMixin, ListView):
             queryset = self.model.objects.filter(module__in=self.request.GET.get('module'))
         if self.request.GET.get('status'):
             queryset = self.model.objects.filter(status_id__in=self.request.GET.get('status'))
+
+
+        def issue_weight():
+            user_list = []
+            queryset = User.objects.all()
+            for i in queryset:
+                user_list.append(i)
+
+            print(user_list)
+        issue_weight()
         return queryset
+
+
+

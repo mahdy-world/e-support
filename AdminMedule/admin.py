@@ -15,12 +15,12 @@ class IssueTypeAdmin(admin.ModelAdmin):
     
 @admin.register(Priroty)
 class PrirotyAdmin(admin.ModelAdmin):
-    list_display = ("id", "name")
+    list_display = ("id", "name", "icon", "color")
     list_filter = ("name", "id")
     
 @admin.register(Status)
 class StatusAdmin(admin.ModelAdmin):
-    list_display = ("id", "name", "color")
+    list_display = ("id", "name", "color", "weight")
     list_filter = ("name", "id")
     
 @admin.register(IssueClass)
