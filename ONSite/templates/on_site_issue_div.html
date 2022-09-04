@@ -1,49 +1,70 @@
+{% load comment_tags %}
+
 {% if object_list %}
-    {% for x in object_list %}
+{% for x in object_list %}
 <div class="card
     {% if x.status.id == 1 %}
         bg-light
+        text-dark
     {% elif x.status.id == 2 %}
         bg-success
+        text-light
     {% elif x.status.id == 3 %}
         bg-warning
+        text-light
     {% elif x.status.id == 4 %}
         bg-info
+        text-light
     {% elif x.status.id == 5 %}
         bg-danger
+        text-light
     {% elif x.status.id == 6 %}
         bg-danger
+        text-light
     {% endif %}
  posts-card" >
      <div class="posts-card__content d-flex align-items-center flex-wrap" >
         <div class="mr-4 issue-card">
-            <h3><a href="{% url 'ONSite:IssueDetails' x.id %}">#{{ x.id }}</a></h3>
+            <h3><a {% if x.status.id != 1 %} style="color: white" {% endif %} href="{% url 'ONSite:IssueDetails' x.id %}">#{{ x.id }}</a></h3>
         </div>
-            <div class="posts-card__title d-flex flex-column">
-                <h5 class="card-title text-dark m-0">
-                    <a href="{% url 'ONSite:IssueDetails' x.id %}" class="headings-color">{% if x.title %} {{ x.title }} {% endif %}</a></h5>
-                <small class="text-50">{% if x.create_date %} {{ x.create_date|date:"D d M Y" }} {{ x.create_date|time:"H:i" }} {% endif %}</small>
+            <div class="posts-card__title d-flex flex-column ">
+                <h5 class="card-title m-0">
+                    <a {% if x.status.id != 1 %} style="color: white" {% endif %} href="{% url 'ONSite:IssueDetails' x.id %}" >
+                        {% if x.title %} {{ x.title }} {% endif %}
+                    </a>
+                </h5>
+                <small {% if x.status.id != 1 %} style="color: white" {% endif %} class="text-50">
+                    {% if x.create_date %} {{ x.create_date|date:"D d M Y" }} {{ x.create_date|time:"H:i" }}
+                    {% endif %}
+                </small>
             </div>
 
-            <div class="d-flex align-items-center flex-row flex-md-row posts-card__meta">
+            <div class="d-flex  flex-row flex-md-row posts-card__meta">
                  <div class="d-flex p-2 align-items-center">
-                    <p class="font-size-18pt">
+                    <p {% if x.status.id != 1 %} style="color: white" {% endif %} class="font-size-18pt"  >
                       <i class="{{ x.priority.icon }}"></i>
                         {% if x.priority.name %} {{ x.priority.name }} / {% endif %}
                         {% if  x.status  %} {{ x.status }} {% endif %}
                     </p>
                 </div>
                 <div class=" d-flex p-2 align-items-center">
-                    <h5>{{ x.channel }} / {{ x.module }}</h5>
+                    <h6 {% if x.status.id != 1 %} style="color: white" {% endif %}>{{ x.channel }} / {{ x.module }}</h6>
                 </div>
 
                 <div class=" p-2 d-flex align-items-center">
-                    <h6 class="text-uppercase">
+                    <h6 {% if x.status.id != 1 %} style="color: white" {% endif %} class="text-uppercase mr-2">
                         RE: {{ x.reporter }}
                         {% if x.assignee %} / AS: {{ x.assignee }} {% endif %}
                         {% if x.actor %} / AC: {{ x.actor }} {% endif %}
+                        /
+                        <i class="fas fa-comment-dots"></i>
+                        {% get_comments_count x user %}
+                        Comments
+
                     </h6>
                 </div>
+
+
             </div>
             <div class="dropdown ml-auto">
                  <a href="#" data-toggle="dropdown" data-caret="false" aria-expanded="false"><i class="material-icons">more_vert</i></a>

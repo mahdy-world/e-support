@@ -1,5 +1,7 @@
 {% extends 'base1.html' %}
 {% load comment_tags %}
+{% include_bootstrap %}
+
 
 {% block container %}
       <div class="container-fluid page__container">
@@ -246,7 +248,10 @@
                         </div>
 
                     <div class="card">
-                         {% render_comments issue request %}
+                        {% render_comments issue request %}
+                       <h1>
+                            {% get_comments_count issue issue.reporter.username %}
+                       </h1>
                     </div>
 
                     </div>
