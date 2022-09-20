@@ -69,6 +69,7 @@ class Issue(models.Model):
     train_number = models.CharField(max_length=20, null=True, blank=True,  verbose_name="Train Number")
     train_from = models.CharField(max_length=20,  null=True, blank=True, verbose_name="Train From")
     train_to = models.CharField(max_length=20,  null=True, blank=True, verbose_name="Train To")
+    trip_date = models.DateField(verbose_name="Trip Date", null=True, blank=True)
 
     teller = models.ForeignKey(EnrUser, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Teller")
     station = models.ForeignKey(Station, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Station")

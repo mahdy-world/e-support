@@ -59,4 +59,4 @@ class Station(models.Model):
     merchant_name = models.CharField(max_length=100, verbose_name="Merchant Name")
     
     def __str__(self):
-        return self.english_name    
+        return self.english_name
