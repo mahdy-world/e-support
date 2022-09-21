@@ -86,6 +86,7 @@ class CreateFullIssue(LoginRequiredMixin, FormView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'New Issue'
         context['message'] = 'add'
+        context['offices'] =
         context['action_url'] = reverse_lazy('ONSite:CreateFullIssue')
         return context
 

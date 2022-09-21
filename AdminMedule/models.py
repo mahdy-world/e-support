@@ -52,11 +52,20 @@ class Module(models.Model):
     
 
 class Station(models.Model):
-    station_type = models.CharField(max_length=100, verbose_name="Station Type")
-    english_name = models.CharField(max_length=100, verbose_name="English Name")
-    arabic_name = models.CharField(max_length=100, verbose_name="Station")
+    station_type = models.CharField(max_length=20, verbose_name="Station Type")
+    english_name = models.CharField(max_length=20, verbose_name="English Name")
+    arabic_name = models.CharField(max_length=20, verbose_name="Station")
     code = models.IntegerField(verbose_name="Code")
     merchant_name = models.CharField(max_length=100, verbose_name="Merchant Name")
     
     def __str__(self):
         return self.english_name
+
+
+class Office(models.Model):
+    station = models.ForeignKey(Station, related_name="station_office", on_delete=models.CASCADE, verbose_name="Station")
+    nameEn = models.CharField(max_length=50, null=True, blank=True, verbose_name="English Name")
+    nameAr = models.CharField(max_length=50, null=True, blank=True, verbose_name="Arabic Name")
+
+    def __str__(self):
+        return self.nameAr
